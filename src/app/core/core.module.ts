@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { LoggerService } from './services/logger.service';
 import { AuthGuard } from './auth.guard';
 import { TeamMemberService } from './teamMember/team-member.service';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
@@ -18,10 +20,11 @@ import { TeamMemberService } from './teamMember/team-member.service';
     RouterModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent
   ],
-  declarations: [HeaderComponent],
-  providers: [ LoggerService, AuthGuard, TeamMemberService ]
+  declarations: [HeaderComponent, LoginComponent],
+  providers: [ LoggerService, LoginService, AuthGuard, TeamMemberService ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
