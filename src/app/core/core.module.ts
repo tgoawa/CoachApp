@@ -7,6 +7,7 @@ import { CollapseModule } from 'ngx-bootstrap';
 import { throwIfAlreadyLoaded } from './module-import.guard';
 import { HeaderComponent } from './header/header.component';
 import { LoggerService } from './services/logger.service';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { LoggerService } from './services/logger.service';
     HeaderComponent
   ],
   declarations: [HeaderComponent],
-  providers: [ LoggerService ]
+  providers: [ LoggerService, AuthGuard ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
