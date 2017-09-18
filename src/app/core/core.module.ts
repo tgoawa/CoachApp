@@ -1,11 +1,18 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { CollapseModule } from 'ngx-bootstrap';
+
 import { throwIfAlreadyLoaded } from './module-import.guard';
 import { HeaderComponent } from './header/header.component';
 
+
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    CollapseModule,
+    RouterModule
   ],
   declarations: [HeaderComponent]
 })
