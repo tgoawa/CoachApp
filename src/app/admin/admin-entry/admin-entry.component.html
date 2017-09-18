@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>Admin</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <label for="Coach">Select the Team Member you want to view Goals as:</label>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <input name="Coach" [typeahead]="teamMemberList" [(ngModel)]="selected" typeaheadOptionsLimit="8" typeaheadOptionField="LastFirstName"
+      class="form-control" (typeaheadOnSelect)="mapTeamMember()">
+  </div>
+</div>
+
+<div *ngIf="emulatedTeamMember.TeamMemberId !== defaultTeamMember.TeamMemberId">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Team Member Information</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      Name:
+    </div>
+    <div class="col-md-4">
+      {{emulatedTeamMember.FirstName}} {{emulatedTeamMember.LastName}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      Is a Shareholder?
+    </div>
+    <div class="col-md-2">
+      {{emulatedTeamMember.IsShareHolder}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      Is Chargeable?
+    </div>
+    <div class="col-md-2">
+      {{emulatedTeamMember.IsChargable}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      Is Green Bay?
+    </div>
+    <div class="col-md-2">
+      {{emulatedTeamMember.IsGreenBay}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      Industry Teams:
+    </div>
+    <div class="col-md-2">
+      <p *ngFor="let industryTeam of emulatedTeamMember.IndustryTeams">{{industryTeam}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button type="button" class="btn btn-success btn-block" (click)="assignEmulatedTeamMember()">Impersonate {{emulatedTeamMember.FirstName}} {{emulatedTeamMember.LastName}}</button>
+    </div>
+  </div>
+
+</div>
