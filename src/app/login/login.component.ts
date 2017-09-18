@@ -26,26 +26,31 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.toFormGroup();
   }
 
+  onSubmit(formValue: User) {
+    const encUser = this.encryptUser();
+    this.checkUser(encUser);
+  }
+
   private checkUser(user: User) {
     this.lgService.checkStatus(user)
-    .subscribe(data => {
-      this.logger.log('Login Successful!');
-      this.setAuthStatus(data);
-    }, error => {
-      this.logger.error(error);
-    });
+      .subscribe(data => {
+        this.logger.log('Login Successful!');
+        this.setAuthStatus(data);
+      }, error => {
+        this.logger.error(error);
+      });
   }
 
   private encryptUser() {
     const key = CryptoJS.enc.Utf8.parse('8080808080808080');
     const iv = CryptoJS.enc.Utf8.parse('8080808080808080');
     const encryptedUser: User = {
-    username: '',
-    password: ''
+      username: '',
+      password: ''
     };
 
-    encryptedUser.username = CryptoJS.AES.encrypt(this.loginForm.get('username').value, key, {iv: iv}).toString();
-    encryptedUser.password = CryptoJS.AES.encrypt(this.loginForm.get('password').value, key, {iv: iv}).toString();
+    encryptedUser.username = CryptoJS.AES.encrypt(this.loginForm.get('username').value, key, { iv: iv }).toString();
+    encryptedUser.password = CryptoJS.AES.encrypt(this.loginForm.get('password').value, key, { iv: iv }).toString();
     return encryptedUser;
   }
 
