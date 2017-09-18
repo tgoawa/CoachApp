@@ -8,6 +8,7 @@ import { throwIfAlreadyLoaded } from './module-import.guard';
 import { HeaderComponent } from './header/header.component';
 import { LoggerService } from './services/logger.service';
 import { AuthGuard } from './auth.guard';
+import { TeamMemberService } from './teamMember/team-member.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { AuthGuard } from './auth.guard';
     HeaderComponent
   ],
   declarations: [HeaderComponent],
-  providers: [ LoggerService, AuthGuard ]
+  providers: [ LoggerService, AuthGuard, TeamMemberService ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
