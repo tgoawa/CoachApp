@@ -14,6 +14,9 @@ import { HeaderComponent } from './header/header.component';
     CollapseModule,
     RouterModule
   ],
+  exports: [
+    HeaderComponent
+  ],
   declarations: [HeaderComponent]
 })
 export class CoreModule {
