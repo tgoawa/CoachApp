@@ -14,6 +14,7 @@ export class TeamMemberService {
   defaultTeamMember: TeamMember;
   emulatedTeamMember: Observable<TeamMember>;
   private _emulatedTeamMember: BehaviorSubject<TeamMember>;
+
   constructor(private http: Http) {
     this._emulatedTeamMember = <BehaviorSubject<TeamMember>>new BehaviorSubject({});
     this.emulatedTeamMember = this._emulatedTeamMember.asObservable();

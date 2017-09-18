@@ -14,4 +14,3 @@ export class TeamMemberResolver {
     return this.tsService.getTeamMember(userName);
   }
 }
-
