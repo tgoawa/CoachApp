@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TeamMemberService } from '../core/teamMember/team-member.service';
+import { TeamMember } from '../core/teamMember/team-member';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  teamMember: TeamMember;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

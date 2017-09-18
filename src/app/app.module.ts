@@ -3,16 +3,15 @@ import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule,
-    CoreModule
+    BrowserModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy }

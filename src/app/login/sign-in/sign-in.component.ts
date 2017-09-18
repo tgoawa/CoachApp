@@ -4,16 +4,16 @@ import { Router } from '@angular/router';
 
 import { Cookie } from 'ng2-cookies';
 import * as CryptoJS from 'crypto-js';
-import { LoginService } from '../services/login.service';
-import { LoggerService } from '../services/logger.service';
-import { User } from './user';
+import { LoginService } from '../login.service';
+import { LoggerService } from '../../core/services/logger.service';
+import { User } from '../user';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class SignInComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder,

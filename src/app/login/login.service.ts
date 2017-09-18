@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import { User } from '../login/user';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 
 const api = environment.envApi;
 @Injectable()

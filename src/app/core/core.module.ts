@@ -11,8 +11,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoggerService } from './services/logger.service';
 import { AuthGuard } from './auth.guard';
 import { TeamMemberService } from './teamMember/team-member.service';
-import { LoginComponent } from './login/login.component';
-import { LoginService } from './services/login.service';
 import { TeamMemberResolver } from './teamMember/team-member.resolver';
 
 
@@ -26,10 +24,9 @@ import { TeamMemberResolver } from './teamMember/team-member.resolver';
   ],
   exports: [
     HeaderComponent,
-    LoginComponent
   ],
-  declarations: [HeaderComponent, LoginComponent],
-  providers: [ LoggerService, LoginService, AuthGuard, TeamMemberService, TeamMemberResolver ]
+  declarations: [HeaderComponent],
+  providers: [ LoggerService, AuthGuard, TeamMemberService, TeamMemberResolver ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
