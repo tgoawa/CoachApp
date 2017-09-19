@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
-import { HttpModule } from '@angular/http';
-import { CoreModule } from './core/core.module';
+import { MainModule } from './main/main.module';
+
+
 
 @NgModule({
   declarations: [
@@ -17,8 +20,8 @@ import { CoreModule } from './core/core.module';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    CoreModule,
     HttpModule,
+    MainModule,
     ReactiveFormsModule
   ],
   providers: [
