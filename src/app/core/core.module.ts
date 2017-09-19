@@ -1,7 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { CollapseModule } from 'ngx-bootstrap';
@@ -19,7 +18,6 @@ import { TeamMemberResolver } from './teamMember/team-member.resolver';
     CommonModule,
     CollapseModule,
     HttpModule,
-    ReactiveFormsModule,
     RouterModule
   ],
   exports: [

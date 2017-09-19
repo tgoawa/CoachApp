@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/auth.guard';
 import { TeamMemberResolver } from '../core/teamMember/team-member.resolver';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
@@ -10,10 +12,11 @@ const routes: Routes = [
     resolve: {
       teamMemberData: TeamMemberResolver
     },
+    component: MainComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', loadChildren: './home/home.module#HomeModule'},
-      { path: 'admin', loadChildren: './admin/admin.module#AdminModule'}
+      { path: 'home', component: LandingPageComponent },
+      { path: 'admin', loadChildren: '../admin/admin.module#AdminModule'}
     ]
   }
 ];
