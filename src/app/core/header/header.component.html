@@ -1,6 +1,6 @@
-<div *ngIf="emulatedTeamMember?.TeamMemberId !== defaultTeamMember?.TeamMemberId" class="container-fluid">
+<div *ngIf="(emulatedTeamMember$ | async)?.TeamMemberId !== (defaultTeamMember$ | async)?.TeamMemberId" class="container-fluid">
   <div class="alert alert-danger text-center">
-    You are currently impersonating {{emulatedTeamMember?.FirstName}} {{emulatedTeamMember?.LastName}}
+    You are currently impersonating {{(emulatedTeamMember$ | async)?.FirstName}} {{(emulatedTeamMember$ | async)?.LastName}}
     <p><a href="javascript:;" class="alert-link" (click)="resetToDefaultTeamMember()">Stop impersonating</a>
     </p>
   </div>

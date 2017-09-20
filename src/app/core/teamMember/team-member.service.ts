@@ -7,26 +7,42 @@ import 'rxjs/add/operator/map';
 
 import { TeamMember } from './team-member';
 import { environment } from '../../../environments/environment';
+import { LoggerService } from '../services/logger.service';
 
 const api = environment.envApi;
 @Injectable()
 export class TeamMemberService {
+  defaultTeamMember$: Observable<TeamMember>;
+  emulatedTeamMember$: Observable<TeamMember>;
   defaultTeamMember: TeamMember;
-  emulatedTeamMember: Observable<TeamMember>;
+  private _defaultTeamMember: BehaviorSubject<TeamMember>;
   private _emulatedTeamMember: BehaviorSubject<TeamMember>;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private logger: LoggerService) {
+    this._defaultTeamMember = <BehaviorSubject<TeamMember>>new BehaviorSubject({});
     this._emulatedTeamMember = <BehaviorSubject<TeamMember>>new BehaviorSubject({});
-    this.emulatedTeamMember = this._emulatedTeamMember.asObservable();
+    this.defaultTeamMember$ = this._defaultTeamMember.asObservable();
+    this.emulatedTeamMember$ = this._emulatedTeamMember.asObservable();
   }
 
   getTeamMember(userName: string) {
-    return this.http.get(api + 'EmployeeService/GetEmployee/' + userName)
-      .map(response => response.json(), error => console.log(error));
+      this.http.get(api + 'EmployeeService/GetEmployee/' + userName)
+      .map(response => response.json(), error => console.log(error))
+      .subscribe(data => {
+        this.defaultTeamMember = data;
+        this._defaultTeamMember.next(Object.assign({}, this.defaultTeamMember));
+        this.setEmulatedTeamMember(this.defaultTeamMember);
+      }, error => {
+        this.logger.error(error);
+      });
   }
 
   setEmulatedTeamMember(teamMember: TeamMember) {
     this._emulatedTeamMember.next(Object.assign({}, teamMember));
+  }
+
+  resetEmulatedTeamMember() {
+    this.setEmulatedTeamMember(this.defaultTeamMember);
   }
 
 }

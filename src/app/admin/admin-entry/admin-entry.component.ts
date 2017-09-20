@@ -3,6 +3,7 @@ import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { TeamMember } from '../../core/teamMember/team-member';
 import { AdminService } from '../services/admin.service';
 import { LoggerService } from '../../core/services/logger.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-admin-entry',
@@ -11,7 +12,7 @@ import { LoggerService } from '../../core/services/logger.service';
 })
 export class AdminEntryComponent implements OnInit {
   teamMemberList: TeamMember[];
-  defaultTeamMember: TeamMember;
+  defaultTeamMember$: Observable<TeamMember>;
   emulatedTeamMember: TeamMember;
   selected: string;
 
@@ -21,17 +22,7 @@ export class AdminEntryComponent implements OnInit {
 
   ngOnInit() {
     this.getTeamMembers();
-    this.getEmulatedTeamMember();
-    this.defaultTeamMember = this.tmService.defaultTeamMember;
-  }
-
-  getEmulatedTeamMember() {
-    this.tmService.emulatedTeamMember
-      .subscribe(data => {
-        this.emulatedTeamMember = data;
-      }, error => {
-        this.logger.error(error);
-      });
+    this.defaultTeamMember$ = this.tmService.defaultTeamMember$;
   }
 
   getTeamMembers() {

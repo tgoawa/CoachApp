@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMember } from '../../core/teamMember/team-member';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
-import { ActivatedRoute } from '@angular/router';
-import { Cookie } from 'ng2-cookies';
-import { LoggerService } from '../../core/services/logger.service';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-landing-page',
@@ -11,28 +10,12 @@ import { LoggerService } from '../../core/services/logger.service';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  teamMember: TeamMember;
-  userName: string;
+  teamMember: Observable<TeamMember>;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private tmService: TeamMemberService,
-    private logger: LoggerService
-    ) { }
+  constructor(private tmService: TeamMemberService) { }
 
   ngOnInit() {
-    this.userName = Cookie.get('user');
-    this.getTeamMember();
-  }
-
-  getTeamMember() {
-    this.tmService.getTeamMember(this.userName)
-      .subscribe(data => {
-        this.teamMember = data;
-        this.tmService.defaultTeamMember = this.teamMember;
-      }, error => {
-        this.logger.error(error);
-      });
+    this.teamMember = this.tmService.emulatedTeamMember$;
   }
 
 }

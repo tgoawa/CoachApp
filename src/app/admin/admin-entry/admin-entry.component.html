@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div *ngIf="emulatedTeamMember?.TeamMemberId !== defaultTeamMember?.TeamMemberId">
+<div *ngIf="emulatedTeamMember?.TeamMemberId !== (defaultTeamMember$ | async)?.TeamMemberId">
   <div class="row">
     <div class="col-md-12">
       <h2>Team Member Information</h2>
@@ -28,7 +28,7 @@
       Name:
     </div>
     <div class="col-md-4">
-      {{emulatedTeamMember.FirstName}} {{emulatedTeamMember.LastName}}
+      {{emulatedTeamMember?.FirstName}} {{emulatedTeamMember?.LastName}}
     </div>
   </div>
 
@@ -37,7 +37,7 @@
       Is a Shareholder?
     </div>
     <div class="col-md-2">
-      {{emulatedTeamMember.IsShareHolder}}
+      {{emulatedTeamMember?.IsShareHolder}}
     </div>
   </div>
 
@@ -46,7 +46,7 @@
       Is Chargeable?
     </div>
     <div class="col-md-2">
-      {{emulatedTeamMember.IsChargable}}
+      {{emulatedTeamMember?.IsChargable}}
     </div>
   </div>
 
@@ -55,7 +55,7 @@
       Is Green Bay?
     </div>
     <div class="col-md-2">
-      {{emulatedTeamMember.IsGreenBay}}
+      {{emulatedTeamMember?.IsGreenBay}}
     </div>
   </div>
 
@@ -64,13 +64,13 @@
       Industry Teams:
     </div>
     <div class="col-md-2">
-      <p *ngFor="let industryTeam of emulatedTeamMember.IndustryTeams">{{industryTeam}}</p>
+      <p *ngFor="let industryTeam of emulatedTeamMember?.IndustryTeams">{{industryTeam}}</p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4">
-      <button type="button" class="btn btn-success btn-block" (click)="assignEmulatedTeamMember()">Impersonate {{emulatedTeamMember.FirstName}} {{emulatedTeamMember.LastName}}</button>
+      <button type="button" class="btn btn-success btn-block" (click)="assignEmulatedTeamMember()">Impersonate {{emulatedTeamMember?.FirstName}} {{emulatedTeamMember?.LastName}}</button>
     </div>
   </div>
 

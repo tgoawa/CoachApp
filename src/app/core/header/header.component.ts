@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMemberService } from '../teamMember/team-member.service';
 import { TeamMember } from '../teamMember/team-member';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-header',
@@ -9,27 +10,18 @@ import { TeamMember } from '../teamMember/team-member';
 })
 export class HeaderComponent implements OnInit {
   isCollapsed = true;
-  defaultTeamMember: TeamMember;
-  emulatedTeamMember: TeamMember;
+  defaultTeamMember$: Observable<TeamMember>;
+  emulatedTeamMember$:  Observable<TeamMember>;
 
   constructor(private tmService: TeamMemberService) { }
 
   ngOnInit() {
-    this.defaultTeamMember = this.tmService.defaultTeamMember;
-    this.getEmulatedTeamMember();
-  }
-
-  getEmulatedTeamMember() {
-    this.tmService.emulatedTeamMember
-      .subscribe(data => {
-        this.emulatedTeamMember = data;
-      }, error => {
-        console.log(error);
-      });
+    this.defaultTeamMember$ = this.tmService.defaultTeamMember$;
+    this.emulatedTeamMember$ = this.tmService.emulatedTeamMember$;
   }
 
   resetToDefaultTeamMember() {
-    this.tmService.setEmulatedTeamMember(this.defaultTeamMember);
+    this.tmService.resetEmulatedTeamMember();
   }
 
 }
