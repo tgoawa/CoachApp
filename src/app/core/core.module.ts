@@ -10,7 +10,6 @@ import { HeaderComponent } from './header/header.component';
 import { LoggerService } from './services/logger.service';
 import { AuthGuard } from './auth.guard';
 import { TeamMemberService } from './teamMember/team-member.service';
-import { TeamMemberResolver } from './teamMember/team-member.resolver';
 
 
 @NgModule({
@@ -24,7 +23,7 @@ import { TeamMemberResolver } from './teamMember/team-member.resolver';
     HeaderComponent,
   ],
   declarations: [HeaderComponent],
-  providers: [ LoggerService, AuthGuard, TeamMemberService, TeamMemberResolver ]
+  providers: [ LoggerService, AuthGuard, TeamMemberService]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

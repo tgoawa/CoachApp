@@ -9,9 +9,6 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    resolve: {
-      teamMemberData: TeamMemberResolver
-    },
     component: MainComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
