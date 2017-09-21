@@ -12,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: LandingPageComponent },
-      { path: 'admin', loadChildren: '../admin/admin.module#AdminModule'}
+      { path: 'admin', loadChildren: '../admin/admin.module#AdminModule'},
+      { path: 'coach', loadChildren: '../coach/coach.module#CoachModule'}
     ]
   }
 ];
