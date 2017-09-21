@@ -26,15 +26,20 @@ export class TeamMemberService {
   }
 
   getTeamMember(userName: string) {
-      this.http.get(api + 'EmployeeService/GetEmployee/' + userName)
-      .map(response => response.json(), error => console.log(error))
+    this.http.get(api + 'EmployeeService/GetEmployee/' + userName)
+      .map(response => response.json(), error => this.logger.error(error))
       .subscribe(data => {
         this.defaultTeamMember = data;
         this._defaultTeamMember.next(Object.assign({}, this.defaultTeamMember));
         this.setEmulatedTeamMember(this.defaultTeamMember);
       }, error => {
-        this.logger.error(error);
+        this.logger.error('Could not get team member');
       });
+  }
+
+  getTeamMembers() {
+    return this.http.get(api + 'EmployeeService/getActiveTeamMembers/')
+      .map(response => response.json(), error => this.logger.error(error));
   }
 
   setEmulatedTeamMember(teamMember: TeamMember) {

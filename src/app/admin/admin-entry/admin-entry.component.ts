@@ -28,7 +28,7 @@ export class AdminEntryComponent implements OnInit {
   getTeamMembers() {
     this.adminService.getTeamMembers()
       .subscribe(data => {
-        this.logger.log('List of team member retrieved');
+        this.logger.log('List of team members retrieved');
         this.teamMemberList = data;
       }, error => {
         this.logger.error(error);
