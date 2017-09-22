@@ -10,7 +10,10 @@ import { TeamMember } from '../../core/teamMember/team-member';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
+  isAddTeamMember: false;
   selected: string;
+  selectedTm: string;
+  selectedCoach: TeamMember;
   coachList: TeamMember[];
   teamMemberList: TeamMember[];
   constructor(private tmService: TeamMemberService, private logger: LoggerService) { }
@@ -22,12 +25,20 @@ export class ManageComponent implements OnInit {
   getTeamMembers() {
     this.tmService.getTeamMembers()
     .subscribe(data => {
-      this.teamMemberList = data;
       this.coachList = data;
+      this.teamMemberList = data;
       this.logger.log('Team member list retrieved!');
     }, error => {
       this.logger.error('Could not retrieve team member list');
     });
+  }
+
+  mapCoach() {
+    for (let index = 0; index < this.coachList.length; index++) {
+      if (this.selected === this.coachList[index].LastFirstName) {
+        this.selectedCoach = this.coachList[index];
+      }
+    }
   }
 
 }

@@ -5,12 +5,93 @@
 </div>
 <div class="row">
   <div class="col-md-4">
-    List of Coaches:
+    Select a Coach:
   </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
-      <input name="Coach" [typeahead]="coachList" [(ngModel)]="selected" typeaheadOptionsLimit="8" typeaheadOptionField="LastFirstName"
-        class="form-control">
+  <div class="col-md-4">
+    <input name="Coach" [typeahead]="coachList" [(ngModel)]="selected" typeaheadOptionsLimit="8" typeaheadOptionField="LastFirstName"
+      class="form-control" (typeaheadOnSelect)="mapCoach()">
+  </div>
+</div>
+<div *ngIf="selectedCoach">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>{{selectedCoach?.FirstName}} {{selectedCoach?.LastName}}</h2>
     </div>
   </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Team Members associated with coach:</h3>
+    </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-success" (click)="isAddTeamMember = true">Add team member</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="isAddTeamMember">
+    <div class="col-md-2">
+      Team member name:
+    </div>
+    <div class="col-md-4">
+      <input name="teamMember" [typeahead]="teamMemberList" [(ngModel)]="selectedTm" typeaheadOptionsLimit="8" typeaheadOptionField="LastFirstName"
+        class="form-control">
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-danger" (click)="isAddTeamMember = false">Cancel</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              First Name
+            </th>
+            <th>
+              Last Name
+            </th>
+            <th>
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>
+              Team
+            </th>
+            <th>
+              member 1
+            </th>
+            <th>
+              <span style="color:red">remove</span>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Team
+            </th>
+            <th>
+              member 2
+            </th>
+            <th>
+              <span style="color:red">remove</span>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Team
+            </th>
+            <th>
+              member 3
+            </th>
+            <th>
+              <span style="color:red">remove</span>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
