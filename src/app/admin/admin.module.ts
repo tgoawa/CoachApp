@@ -7,7 +7,6 @@ import { TypeaheadModule } from 'ngx-bootstrap';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminEntryComponent } from './admin-entry/admin-entry.component';
 import { AdminComponent } from './admin.component';
-import { AdminService } from './services/admin.service';
 
 
 
@@ -18,7 +17,6 @@ import { AdminService } from './services/admin.service';
     TypeaheadModule.forRoot(),
     AdminRoutingModule
   ],
-  declarations: [AdminEntryComponent, AdminComponent],
-  providers: [ AdminService ]
+  declarations: [AdminEntryComponent, AdminComponent]
 })
 export class AdminModule { }

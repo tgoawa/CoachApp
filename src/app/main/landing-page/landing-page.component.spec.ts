@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LandingPageComponent } from './landing-page.component';
+import { TeamMemberService } from '../../core/teamMember/team-member.service';
+import { HttpModule } from '@angular/http';
+import { LoggerService } from '../../core/services/logger.service';
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
@@ -8,7 +11,9 @@ describe('LandingPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LandingPageComponent ]
+      imports: [ HttpModule ],
+      declarations: [ LandingPageComponent ],
+      providers: [ LoggerService, TeamMemberService ]
     })
     .compileComponents();
   }));

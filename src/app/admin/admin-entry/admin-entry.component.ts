@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { TeamMember } from '../../core/teamMember/team-member';
-import { AdminService } from '../services/admin.service';
 import { LoggerService } from '../../core/services/logger.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,8 +15,7 @@ export class AdminEntryComponent implements OnInit {
   emulatedTeamMember: TeamMember;
   selected: string;
 
-  constructor(private adminService: AdminService,
-    private logger: LoggerService,
+  constructor(private logger: LoggerService,
     private tmService: TeamMemberService) { }
 
   ngOnInit() {
@@ -26,7 +24,7 @@ export class AdminEntryComponent implements OnInit {
   }
 
   getTeamMembers() {
-    this.adminService.getTeamMembers()
+    this.tmService.getTeamMembers()
       .subscribe(data => {
         this.logger.log('List of team members retrieved');
         this.teamMemberList = data;

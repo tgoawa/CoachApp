@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { HeaderComponent } from './header.component';
+import { CollapseModule } from 'ngx-bootstrap';
+import { TeamMemberService } from '../teamMember/team-member.service';
+import { HttpModule } from '@angular/http';
+import { LoggerService } from '../services/logger.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +12,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      imports: [ CollapseModule, HttpModule, RouterTestingModule ],
+      declarations: [ HeaderComponent ],
+      providers: [ LoggerService, TeamMemberService ]
     })
     .compileComponents();
   }));
