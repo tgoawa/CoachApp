@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { CollapseModule } from 'ngx-bootstrap';
+import { MdMenuModule, MdToolbarModule, MdButtonModule } from '@angular/material';
 
 import { throwIfAlreadyLoaded } from './module-import.guard';
 import { HeaderComponent } from './header/header.component';
@@ -15,9 +15,11 @@ import { TeamMemberService } from './teamMember/team-member.service';
 @NgModule({
   imports: [
     CommonModule,
-    CollapseModule,
     HttpModule,
-    RouterModule
+    RouterModule,
+    MdMenuModule,
+    MdToolbarModule,
+    MdButtonModule
   ],
   exports: [
     HeaderComponent,

@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  isCollapsed = true;
   defaultTeamMember$: Observable<TeamMember>;
   emulatedTeamMember$:  Observable<TeamMember>;
 

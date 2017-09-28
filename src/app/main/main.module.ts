@@ -12,7 +12,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
   imports: [
     CommonModule,
     CoreModule,
-    MainRoutingModule
+    MainRoutingModule,
   ],
   declarations: [
     MainComponent,
