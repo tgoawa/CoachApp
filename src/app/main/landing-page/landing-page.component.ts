@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TeamMember } from '../../core/teamMember/team-member';
-import { TeamMemberService } from '../../core/teamMember/team-member.service';
-import { Observable } from 'rxjs/Observable';
-
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,12 +7,12 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
-  teamMember: Observable<TeamMember>;
+  teamMemberControl: FormControl;
 
-  constructor(private tmService: TeamMemberService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.teamMember = this.tmService.emulatedTeamMember$;
+    this.teamMemberControl = new FormControl();
   }
 
 }

@@ -1,1 +1,16 @@
-<h1 class="mat-display-1">Welcome {{(teamMember | async)?.FirstName}} {{(teamMember | async)?.LastName}}!</h1>
+<h1 class="mat-display-1">Assign a coach</h1>
+<md-card>
+  <md-card-title>
+    <span>Select a Team Member</span>
+  </md-card-title>
+  <md-card-content>
+    <md-form-field>
+      <input type="text" mdInput [formControl]="teamMemberControl">
+    </md-form-field>
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option *ngFor="let teammember of teamMembers" [value]="teammember">
+        {{ teammember }}
+      </md-option>
+    </md-autocomplete>
+  </md-card-content>
+</md-card>
