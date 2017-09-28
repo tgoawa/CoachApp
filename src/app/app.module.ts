@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdFormFieldModule} from '@angular/material';
+import { MdInputModule, MdButtonModule } from '@angular/material';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,8 +27,8 @@ import { MainModule } from './main/main.module';
     HttpModule,
     MainModule,
     ReactiveFormsModule,
-    MdAutocompleteModule,
-    MdFormFieldModule
+    MdInputModule,
+    MdButtonModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -1,17 +1,14 @@
-<div class="container">
-  <div class="row justify-content-center" style="margin-top: 200px">
-    <div class="col-md-6">
-      <h1>Sign in</h1>
-      <p><small>Use your Windows username and password.</small></p>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="User Name" formControlName="username">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" formControlName="password" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-success" [disabled]="!loginForm.valid">Submit</button>
-      </form>
-    </div>
-  </div>
-</div>
+<h1 class="mat-display-1">Sign In</h1>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <md-form-field class="full-width">
+    <input mdInput type="text" placeholder="User Name" formControlName="username">
+    <md-hint>Use your Windows username</md-hint>
+    <md-error>This field is required</md-error>
+  </md-form-field>
+  <md-form-field class="full-width">
+    <input mdInput type="password" placeholder="Password" formControlName="password">
+    <md-hint>Use your Windows password</md-hint>
+    <md-error>This field is required</md-error>
+  </md-form-field>
+  <button md-raised-button color="accent">Click me!</button>
+</form>
