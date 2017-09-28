@@ -2,4 +2,11 @@
   <button md-button color="primary" routerLink="/home"><img src="../../assets/images/schenck-logo.png"></button>
   <button md-button color="primary" routerLink="/coach">Coach</button>
   <button md-button color="primary" routerLink="/admin">Admin</button>
+  <span class="toolbar-spacer"></span>
+  <md-icon>person</md-icon>
+  <span>{{(defaultTeamMember$ | async)?.FirstName}} {{(defaultTeamMember$ | async)?.LastName}}</span>
+  <md-toolbar-row *ngIf="(defaultTeamMember$ | async)?.TeamMemberId !== (emulatedTeamMember$ | async)?.TeamMemberId">
+    <span class="toolbar-spacer"></span>
+    <span style="color: red">Logged in as: {{(emulatedTeamMember$ | async)?.FirstName}} {{(emulatedTeamMember$ | async)?.LastName}}</span>
+  </md-toolbar-row>
 </md-toolbar>
