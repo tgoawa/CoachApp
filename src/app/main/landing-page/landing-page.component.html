@@ -14,3 +14,14 @@
     </md-autocomplete>
   </md-card-content>
 </md-card>
+<md-card *ngIf="selectedTeamMember | async; let selectedTeamMember">
+  <md-card-title>
+    Team Member Information:
+  </md-card-title>
+  <md-card-content>
+    <p><span class="mat-body-2">Team Member First Name:</span> {{selectedTeamMember.TeamMemberFirstName}}</p>
+    <p><span class="mat-body-2">Team Member Last Name:</span> {{selectedTeamMember.TeamMemberLastName}}</p>
+    <p><span class="mat-body-2">Coach First Name:</span> {{selectedTeamMember.CoachFirstName}}</p>
+    <p><span class="mat-body-2">Coach First Name:</span> {{selectedTeamMember.CoachLastName}}</p>
+  </md-card-content>
+</md-card>

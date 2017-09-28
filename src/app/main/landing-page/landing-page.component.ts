@@ -18,11 +18,13 @@ export class LandingPageComponent implements OnInit {
   teamMemberControl: FormControl = new FormControl();
   teamMembers: CoachTeamMember[];
   filteredTeamMembers: Observable<CoachTeamMember[]>;
+  selectedTeamMember: Observable<CoachTeamMember>;
 
   constructor(private tmService: TeamMemberService, private logger: LoggerService) { }
 
   ngOnInit() {
     this.getTeamMembers();
+    this.selectedTeamMember = this.teamMemberControl.valueChanges;
   }
 
   getTeamMembers() {
