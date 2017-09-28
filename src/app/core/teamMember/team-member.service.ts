@@ -42,6 +42,11 @@ export class TeamMemberService {
       .map(response => response.json(), error => this.logger.error(error));
   }
 
+  getCoachesTeamMembers() {
+    return this.http.get(api + 'EmployeeService/GetCoachsTeamMembers')
+    .map(response => response.json(), error => this.logger.error(error));
+  }
+
   setEmulatedTeamMember(teamMember: TeamMember) {
     this._emulatedTeamMember.next(Object.assign({}, teamMember));
   }

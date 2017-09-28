@@ -5,11 +5,11 @@
   </md-card-title>
   <md-card-content>
     <md-form-field>
-      <input type="text" mdInput [formControl]="teamMemberControl">
+      <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto">
     </md-form-field>
-    <md-autocomplete #auto="mdAutocomplete">
-      <md-option *ngFor="let teammember of teamMembers" [value]="teammember">
-        {{ teammember }}
+    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName">
+      <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
+          {{ teammember.TeamMemberLastName}}, {{ teammember.TeamMemberFirstName }}
       </md-option>
     </md-autocomplete>
   </md-card-content>
