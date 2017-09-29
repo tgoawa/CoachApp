@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule} from '@angular/forms';
-
-import { TypeaheadModule } from 'ngx-bootstrap';
+import { ReactiveFormsModule} from '@angular/forms';
 
 import { CoachRoutingModule } from './coach-routing.module';
 import { ManageComponent } from './manage/manage.component';
 import { CoachComponent } from './coach.component';
 
+import { MdCardModule, MatAutocompleteModule, MdInputModule, MdListModule } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
     CoachRoutingModule,
-    FormsModule,
-    TypeaheadModule.forRoot()
+    ReactiveFormsModule,
+    MdCardModule,
+    MatAutocompleteModule,
+    MdInputModule,
+    MdListModule
   ],
   declarations: [ManageComponent, CoachComponent]
 })

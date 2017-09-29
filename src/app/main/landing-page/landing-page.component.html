@@ -1,27 +1,26 @@
 <h1 class="mat-display-1">Assign a coach</h1>
 <md-card>
-  <md-card-title>
-    <span>Select a Team Member</span>
-  </md-card-title>
   <md-card-content>
     <md-form-field>
-      <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto">
+      <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto" placeholder="Select a Team Member">
     </md-form-field>
     <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName">
       <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
-          {{ teammember.TeamMemberLastName}}, {{ teammember.TeamMemberFirstName }}
+        {{ teammember.TeamMemberLastName}}, {{ teammember.TeamMemberFirstName }}
       </md-option>
     </md-autocomplete>
-  </md-card-content>
-</md-card>
-<md-card *ngIf="selectedTeamMember | async; let selectedTeamMember">
-  <md-card-title>
-    Team Member Information:
-  </md-card-title>
-  <md-card-content>
-    <p><span class="mat-body-2">Team Member First Name:</span> {{selectedTeamMember.TeamMemberFirstName}}</p>
-    <p><span class="mat-body-2">Team Member Last Name:</span> {{selectedTeamMember.TeamMemberLastName}}</p>
-    <p><span class="mat-body-2">Coach First Name:</span> {{selectedTeamMember.CoachFirstName}}</p>
-    <p><span class="mat-body-2">Coach First Name:</span> {{selectedTeamMember.CoachLastName}}</p>
+    <section *ngIf="selectedTeamMember | async; let selectedTeamMember">
+      <h2>Team Member Information:</h2>
+      <md-list>
+        <md-list-item>
+          <h4>First Name: </h4> {{selectedTeamMember.TeamMemberFirstName}}</md-list-item>
+        <md-list-item>
+          <h4>Last Name: </h4> {{selectedTeamMember.TeamMemberLastName}}</md-list-item>
+        <md-list-item>
+          <h4>Coach First Name: </h4> {{selectedTeamMember.CoachFirstName}}</md-list-item>
+        <md-list-item>
+          <h4>Coach First Name: </h4> {{selectedTeamMember.CoachLastName}}</md-list-item>
+      </md-list>
+    </section>
   </md-card-content>
 </md-card>

@@ -6,7 +6,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
-import { MdCardModule, MatAutocompleteModule, MdInputModule } from '@angular/material';
+import { MdCardModule, MatAutocompleteModule, MdInputModule, MdListModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { MdCardModule, MatAutocompleteModule, MdInputModule } from '@angular/mat
     MainRoutingModule,
     MdCardModule,
     MatAutocompleteModule,
-    MdInputModule
+    MdInputModule,
+    MdListModule
   ],
   declarations: [
     MainComponent,
