@@ -47,6 +47,16 @@ export class TeamMemberService {
     .map(response => response.json(), error => this.logger.error(error));
   }
 
+  saveTeamMemberCoach(obj) {
+    return this.http.post(api + 'EmployeeService/saveTeamMemberCoach/', obj)
+    .map(response => response.json(), error => this.logger.error('Could not assign coach'));
+  }
+
+  updateTeamMemberCoach(obj) {
+    return this.http.put(api + 'EmployeeService/updateTeamMemberCoach/', obj)
+    .map(response => response.json(), error => this.logger.error('Could not update coach'));
+  }
+
   setEmulatedTeamMember(teamMember: TeamMember) {
     this._emulatedTeamMember.next(Object.assign({}, teamMember));
   }

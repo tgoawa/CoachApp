@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import { MdSnackBar } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
-import { CoachTeamMember } from './coach-team-member';
+import { CoachTeamMember, TeamMemberCoachModel } from './coach-team-member';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
 
@@ -20,12 +21,19 @@ export class LandingPageComponent implements OnInit {
   teamMembers: CoachTeamMember[];
   filteredTeamMembers: Observable<CoachTeamMember[]>;
   selectedTeamMember: Observable<CoachTeamMember>;
+  teamMemberCoach: TeamMemberCoachModel;
 
-  constructor(private tmService: TeamMemberService, private logger: LoggerService) { }
+  constructor(private tmService: TeamMemberService,
+    private logger: LoggerService,
+    private snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.getTeamMembers();
     this.selectedTeamMember = this.teamMemberControl.valueChanges;
+  }
+
+  displayName(teamMember: CoachTeamMember) {
+    return teamMember ? teamMember.TeamMemberLastName + ',' + ' ' + teamMember.TeamMemberFirstName : teamMember;
   }
 
   getTeamMembers() {
@@ -39,8 +47,49 @@ export class LandingPageComponent implements OnInit {
       });
   }
 
-  displayName(teamMember: CoachTeamMember) {
-    return teamMember ? teamMember.TeamMemberLastName + ',' + ' ' + teamMember.TeamMemberFirstName : teamMember;
+  mapTeamMemberCoach() {
+    const teamMember: CoachTeamMember = this.teamMemberControl.value;
+    const coach: CoachTeamMember = this.coachControl.value;
+    this.teamMemberCoach = new TeamMemberCoachModel();
+    this.teamMemberCoach.CoachId = coach.TeamMemberId;
+    this.teamMemberCoach.TeamMemberId = teamMember.TeamMemberId;
+  }
+
+  saveNewCoach() {
+    if (this.coachControl.value === null) {
+      return;
+    } else {
+      this.mapTeamMemberCoach();
+      this.tmService.saveTeamMemberCoach(this.teamMemberCoach)
+        .subscribe(data => {
+          this.openSnackBar('Coach assigned!');
+          this.updateLocalTeamMember();
+        }, error => {
+          this.logger.error(error);
+          this.openSnackBar('Error assigning coach!');
+        });
+    }
+  }
+
+  updateCoach() {
+    if (this.coachControl.value == null) {
+      return;
+    } else {
+      this.mapTeamMemberCoach();
+      this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
+        .subscribe(data => {
+          this.openSnackBar('Coach updated!');
+          this.updateLocalTeamMember();
+        }, error => {
+          this.logger.error(error);
+          this.openSnackBar('Error updating coach!');
+        });
+    }
+  }
+
+  private filter(val: string): CoachTeamMember[] {
+    return this.teamMembers.filter(teamMember =>
+      teamMember.TeamMemberLastName.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
   private setFilteredTeamMembers() {
@@ -50,9 +99,23 @@ export class LandingPageComponent implements OnInit {
       .map(val => val ? this.filter(val) : this.teamMembers.slice());
   }
 
-  private filter(val: string): CoachTeamMember[] {
-    return this.teamMembers.filter(teamMember =>
-      teamMember.TeamMemberLastName.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  private openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 2000,
+    });
+  }
+
+  private updateLocalTeamMember() {
+    const selectedTeamMember: CoachTeamMember = this.teamMemberControl.value;
+    const selectedCoach: CoachTeamMember = this.coachControl.value;
+
+    for (let x = 0; x < this.teamMembers.length; x++) {
+      if (selectedTeamMember.TeamMemberId === this.teamMembers[x].TeamMemberId) {
+        this.teamMembers[x].CoachId = selectedCoach.TeamMemberId;
+        this.teamMembers[x].CoachFirstName = selectedCoach.TeamMemberFirstName;
+        this.teamMembers[x].CoachLastName = selectedCoach.TeamMemberLastName;
+      }
+    }
   }
 
 }

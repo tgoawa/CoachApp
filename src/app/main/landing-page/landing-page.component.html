@@ -22,10 +22,10 @@
         </md-option>
       </md-autocomplete>
       <section *ngIf="selectedTeamMember.CoachFirstName; else noCoach">
-        <button md-raised-button color="accent">Update Coach</button>
+        <button md-raised-button color="accent" (click)="updateCoach()">Update Coach</button>
       </section>
       <ng-template #noCoach>
-        <button md-raised-button color="accent">Assign Coach</button>
+        <button md-raised-button color="accent" (click)="saveNewCoach()">Assign Coach</button>
       </ng-template>
     </section>
   </md-card-content>
