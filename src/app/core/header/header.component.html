@@ -8,5 +8,6 @@
   <md-toolbar-row *ngIf="(defaultTeamMember$ | async)?.TeamMemberId !== (emulatedTeamMember$ | async)?.TeamMemberId">
     <span class="toolbar-spacer"></span>
     <span style="color: red">Logged in as: {{(emulatedTeamMember$ | async)?.FirstName}} {{(emulatedTeamMember$ | async)?.LastName}}</span>
+    <button md-button color="warn" (click)="resetToDefaultTeamMember()">Stop impersonating</button>
   </md-toolbar-row>
 </md-toolbar>
