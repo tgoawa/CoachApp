@@ -16,6 +16,7 @@ import { LoggerService } from '../../core/services/logger.service';
 })
 export class LandingPageComponent implements OnInit {
   teamMemberControl: FormControl = new FormControl();
+  coachControl: FormControl = new FormControl();
   teamMembers: CoachTeamMember[];
   filteredTeamMembers: Observable<CoachTeamMember[]>;
   selectedTeamMember: Observable<CoachTeamMember>;
