@@ -51,6 +51,14 @@ export class LandingPageComponent implements OnInit {
     this.noCoach(teamMember);
   }
 
+  mapCoachToTeamMember() {
+    const coach: TeamMember = this.coachControl.value;
+    this.teamMemberCoach = new TeamMemberCoachModel();
+    this.teamMemberCoach.CoachId = coach.TeamMemberId;
+    this.teamMemberCoach.TeamMemberId = this.selectedTeamMember.TeamMemberId;
+
+  }
+
   saveNewCoach() {
     if (this.coachControl.value === null) {
       return;

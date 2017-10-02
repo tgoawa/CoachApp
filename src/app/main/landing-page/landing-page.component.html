@@ -16,7 +16,7 @@
       <md-form-field>
         <input type="text" mdInput [formControl]="coachControl" [mdAutocomplete]="auto" placeholder="Select a Coach">
       </md-form-field>
-      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName">
+      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapCoachToTeamMember()">
         <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
           {{ teammember.LastFirstName}}
         </md-option>
