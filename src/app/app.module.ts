@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MdInputModule, MdButtonModule, MdCardModule } from '@angular/material';
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,11 +22,14 @@ import { MainModule } from './main/main.module';
   ],
   imports: [
     AppRoutingModule,
-    AngularFontAwesomeModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     MainModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdInputModule,
+    MdButtonModule,
+    MdCardModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

@@ -1,1 +1,38 @@
-<h1>Welcome {{(teamMember | async)?.FirstName}} {{(teamMember | async)?.LastName}}!</h1>
+<h1 class="mat-display-1">Assign a coach</h1>
+<md-card>
+  <md-card-content>
+    <md-form-field>
+      <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto" placeholder="Select a Team Member">
+    </md-form-field>
+    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapSelectedTeamMember()">
+      <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
+        {{ teammember.LastFirstName}}
+      </md-option>
+    </md-autocomplete>
+    <section *ngIf="selectedTeamMember">
+      <h2>Team Member</h2>
+      <p><span class="mat-body-2">Name: </span>{{selectedTeamMember.TeamMemberFirstName}} {{selectedTeamMember.TeamMemberLastName}}</p>
+      <p><span class="mat-body-2">Coach: </span>{{selectedTeamMember.CoachFirstName}} {{selectedTeamMember.CoachLastName}}</p>
+      <md-form-field>
+        <input type="text" mdInput [formControl]="coachControl" [mdAutocomplete]="auto" placeholder="Select a Coach">
+      </md-form-field>
+      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapCoachToTeamMember()">
+        <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
+          {{ teammember.LastFirstName}}
+        </md-option>
+      </md-autocomplete>
+      <ng-container *ngIf="selectedTeamMember.CoachId !== 0; else noCoach">
+        <button md-raised-button color="accent" (click)="updateCoach()">Update Coach</button>
+      </ng-container>
+      <ng-template #noCoach>
+        <button md-raised-button color="accent" (click)="saveNewCoach()">Assign Coach</button>
+      </ng-template>
+      <ng-container *ngIf="messageStatus === 1">
+        <span class="mat-caption success">Coach updated successfully!</span>
+      </ng-container>
+      <ng-container *ngIf="messageStatus === 2">
+        <span class="mat-caption error">There was an issue making this change!</span>
+      </ng-container>
+    </section>
+  </md-card-content>
+</md-card>
