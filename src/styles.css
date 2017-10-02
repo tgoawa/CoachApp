@@ -7,3 +7,17 @@
 body {
   padding: .5em 19em;
 }
+
+.success {
+  background-color: #afdda3;
+  color: #329620;
+  border-radius: .5em;
+  padding: .5em
+}
+
+.error {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+  border-radius: .5em;
+  padding: .5em
+}

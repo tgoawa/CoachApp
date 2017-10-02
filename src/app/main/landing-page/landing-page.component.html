@@ -27,6 +27,12 @@
       <ng-template #noCoach>
         <button md-raised-button color="accent" (click)="saveNewCoach()">Assign Coach</button>
       </ng-template>
+      <ng-container *ngIf="messageStatus === 1">
+        <span class="mat-caption success">Coach updated successfully!</span>
+      </ng-container>
+      <ng-container *ngIf="messageStatus === 2">
+        <span class="mat-caption error">There was an issue making this change!</span>
+      </ng-container>
     </section>
   </md-card-content>
 </md-card>

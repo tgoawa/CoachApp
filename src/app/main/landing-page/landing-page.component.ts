@@ -11,6 +11,12 @@ import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMember } from '../../core/teamMember/team-member';
 
+enum Status {
+  success = 1,
+  error = 2,
+  default = 0
+}
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -24,6 +30,7 @@ export class LandingPageComponent implements OnInit {
   selectedTeamMember: CoachTeamMember;
   coachedTeamMembers: CoachTeamMember[];
   teamMemberCoach: TeamMemberCoachModel;
+  messageStatus: Status;
 
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService,
@@ -39,6 +46,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   mapSelectedTeamMember() {
+    this.resetMessages();
     const teamMember: TeamMember = this.teamMemberControl.value;
     this.selectedTeamMember = new CoachTeamMember();
 
@@ -66,9 +74,11 @@ export class LandingPageComponent implements OnInit {
       this.tmService.saveTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach assigned!');
+          this.messageStatus = 1;
           this.updateCoachName();
         }, error => {
           this.logger.error(error);
+          this.messageStatus = 2;
           this.openSnackBar('Error assigning coach!');
         });
     }
@@ -81,9 +91,11 @@ export class LandingPageComponent implements OnInit {
       this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach updated!');
+          this.messageStatus = 1;
           this.updateCoachName();
         }, error => {
           this.logger.error(error);
+          this.messageStatus = 2;
           this.openSnackBar('Error updating coach!');
         });
     }
@@ -122,6 +134,10 @@ export class LandingPageComponent implements OnInit {
       this.selectedTeamMember.TeamMemberLastName = TeamMember.LastName;
       this.selectedTeamMember.CoachId = 0;
     }
+  }
+
+  private resetMessages() {
+    this.messageStatus = 0;
   }
 
   private setFilteredTeamMembers() {
