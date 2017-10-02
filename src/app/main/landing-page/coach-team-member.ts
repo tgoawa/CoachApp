@@ -1,4 +1,4 @@
-export interface CoachTeamMember {
+export class CoachTeamMember {
   CoachId: number;
   CoachFirstName: string;
   CoachLastName: string;

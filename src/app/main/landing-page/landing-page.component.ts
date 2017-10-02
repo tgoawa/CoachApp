@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import { CoachTeamMember, TeamMemberCoachModel } from './coach-team-member';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
+import { TeamMember } from '../../core/teamMember/team-member';
 
 @Component({
   selector: 'app-landing-page',
@@ -18,9 +19,10 @@ import { LoggerService } from '../../core/services/logger.service';
 export class LandingPageComponent implements OnInit {
   teamMemberControl: FormControl = new FormControl();
   coachControl: FormControl = new FormControl();
-  teamMembers: CoachTeamMember[];
-  filteredTeamMembers: Observable<CoachTeamMember[]>;
-  selectedTeamMember: Observable<CoachTeamMember>;
+  teamMembers: TeamMember[];
+  filteredTeamMembers: Observable<TeamMember[]>;
+  selectedTeamMember: CoachTeamMember;
+  coachedTeamMembers: CoachTeamMember[];
   teamMemberCoach: TeamMemberCoachModel;
 
   constructor(private tmService: TeamMemberService,
@@ -29,41 +31,33 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.getTeamMembers();
-    this.selectedTeamMember = this.teamMemberControl.valueChanges;
+    this.getCoachedTeamMembers();
   }
 
-  displayName(teamMember: CoachTeamMember) {
-    return teamMember ? teamMember.TeamMemberLastName + ',' + ' ' + teamMember.TeamMemberFirstName : teamMember;
+  displayName(teamMember: TeamMember) {
+    return teamMember ? teamMember.LastFirstName : teamMember;
   }
 
-  getTeamMembers() {
-    this.tmService.getCoachesTeamMembers()
-      .subscribe(data => {
-        this.teamMembers = data;
-        this.setFilteredTeamMembers();
-        this.logger.log('team members retrieved!');
-      }, error => {
-        this.logger.error(error);
-      });
-  }
+  mapSelectedTeamMember() {
+    const teamMember: TeamMember = this.teamMemberControl.value;
+    this.selectedTeamMember = new CoachTeamMember();
 
-  mapTeamMemberCoach() {
-    const teamMember: CoachTeamMember = this.teamMemberControl.value;
-    const coach: CoachTeamMember = this.coachControl.value;
-    this.teamMemberCoach = new TeamMemberCoachModel();
-    this.teamMemberCoach.CoachId = coach.TeamMemberId;
-    this.teamMemberCoach.TeamMemberId = teamMember.TeamMemberId;
+    for (let x = 0; x < this.coachedTeamMembers.length; x++) {
+      if (teamMember.TeamMemberId === this.coachedTeamMembers[x].TeamMemberId) {
+        this.selectedTeamMember = this.coachedTeamMembers[x];
+      }
+    }
+
+    this.noCoach(teamMember);
   }
 
   saveNewCoach() {
     if (this.coachControl.value === null) {
       return;
     } else {
-      this.mapTeamMemberCoach();
       this.tmService.saveTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach assigned!');
-          this.updateLocalTeamMember();
         }, error => {
           this.logger.error(error);
           this.openSnackBar('Error assigning coach!');
@@ -75,11 +69,9 @@ export class LandingPageComponent implements OnInit {
     if (this.coachControl.value == null) {
       return;
     } else {
-      this.mapTeamMemberCoach();
       this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach updated!');
-          this.updateLocalTeamMember();
         }, error => {
           this.logger.error(error);
           this.openSnackBar('Error updating coach!');
@@ -87,9 +79,39 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  private filter(val: string): CoachTeamMember[] {
+  private filter(val: string): TeamMember[] {
     return this.teamMembers.filter(teamMember =>
-      teamMember.TeamMemberLastName.toLowerCase().indexOf(val.toLowerCase()) === 0);
+      teamMember.LastFirstName.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  private getTeamMembers() {
+    this.tmService.getTeamMembers()
+      .subscribe(data => {
+        this.teamMembers = data;
+        this.setFilteredTeamMembers();
+        this.logger.log('team members retrieved!');
+      }, error => {
+        this.logger.error(error);
+      });
+  }
+
+  private getCoachedTeamMembers() {
+    this.tmService.getCoachesTeamMembers()
+      .subscribe(data => {
+        this.coachedTeamMembers = data;
+        this.logger.log('Retrieved Coach team members list');
+      }, error => {
+        this.logger.error(error);
+      });
+  }
+
+  private noCoach(TeamMember: TeamMember) {
+    if (this.selectedTeamMember.TeamMemberId === undefined) {
+      this.selectedTeamMember.TeamMemberId = TeamMember.TeamMemberId;
+      this.selectedTeamMember.TeamMemberFirstName = TeamMember.FirstName;
+      this.selectedTeamMember.TeamMemberLastName = TeamMember.LastName;
+      this.selectedTeamMember.CoachId = 0;
+    }
   }
 
   private setFilteredTeamMembers() {
@@ -103,19 +125,6 @@ export class LandingPageComponent implements OnInit {
     this.snackBar.open(message, '', {
       duration: 2000,
     });
-  }
-
-  private updateLocalTeamMember() {
-    const selectedTeamMember: CoachTeamMember = this.teamMemberControl.value;
-    const selectedCoach: CoachTeamMember = this.coachControl.value;
-
-    for (let x = 0; x < this.teamMembers.length; x++) {
-      if (selectedTeamMember.TeamMemberId === this.teamMembers[x].TeamMemberId) {
-        this.teamMembers[x].CoachId = selectedCoach.TeamMemberId;
-        this.teamMembers[x].CoachFirstName = selectedCoach.TeamMemberFirstName;
-        this.teamMembers[x].CoachLastName = selectedCoach.TeamMemberLastName;
-      }
-    }
   }
 
 }

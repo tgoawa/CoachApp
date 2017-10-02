@@ -4,12 +4,12 @@
     <md-form-field>
       <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto" placeholder="Select a Team Member">
     </md-form-field>
-    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName">
+    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapSelectedTeamMember()">
       <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
-        {{ teammember.TeamMemberLastName}}, {{ teammember.TeamMemberFirstName }}
+        {{ teammember.LastFirstName}}
       </md-option>
     </md-autocomplete>
-    <section *ngIf="selectedTeamMember | async; let selectedTeamMember">
+    <section *ngIf="selectedTeamMember">
       <h2>Team Member</h2>
       <p><span class="mat-body-2">Name: </span>{{selectedTeamMember.TeamMemberFirstName}} {{selectedTeamMember.TeamMemberLastName}}</p>
       <p><span class="mat-body-2">Coach: </span>{{selectedTeamMember.CoachFirstName}} {{selectedTeamMember.CoachLastName}}</p>
@@ -18,12 +18,12 @@
       </md-form-field>
       <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName">
         <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
-          {{ teammember.TeamMemberLastName}}, {{ teammember.TeamMemberFirstName }}
+          {{ teammember.LastFirstName}}
         </md-option>
       </md-autocomplete>
-      <section *ngIf="selectedTeamMember.CoachFirstName; else noCoach">
+      <ng-container *ngIf="selectedTeamMember.CoachId !== 0; else noCoach">
         <button md-raised-button color="accent" (click)="updateCoach()">Update Coach</button>
-      </section>
+      </ng-container>
       <ng-template #noCoach>
         <button md-raised-button color="accent" (click)="saveNewCoach()">Assign Coach</button>
       </ng-template>
