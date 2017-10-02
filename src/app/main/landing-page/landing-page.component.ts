@@ -66,6 +66,7 @@ export class LandingPageComponent implements OnInit {
       this.tmService.saveTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach assigned!');
+          this.updateCoachName();
         }, error => {
           this.logger.error(error);
           this.openSnackBar('Error assigning coach!');
@@ -74,12 +75,13 @@ export class LandingPageComponent implements OnInit {
   }
 
   updateCoach() {
-    if (this.coachControl.value == null) {
+    if (this.coachControl.value === null) {
       return;
     } else {
       this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach updated!');
+          this.updateCoachName();
         }, error => {
           this.logger.error(error);
           this.openSnackBar('Error updating coach!');
@@ -133,6 +135,13 @@ export class LandingPageComponent implements OnInit {
     this.snackBar.open(message, '', {
       duration: 2000,
     });
+  }
+
+  private updateCoachName() {
+    const coach: TeamMember = this.coachControl.value;
+    this.selectedTeamMember.CoachId = coach.TeamMemberId;
+    this.selectedTeamMember.CoachFirstName = coach.FirstName;
+    this.selectedTeamMember.CoachLastName = coach.LastName;
   }
 
 }
