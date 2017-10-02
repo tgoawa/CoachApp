@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
-import { CoachTeamMember, TeamMemberCoachModel } from './coach-team-member';
+import { CoachTeamMember, TeamMemberCoachModel } from '../../core/models/coach-team-member';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMember } from '../../core/teamMember/team-member';
