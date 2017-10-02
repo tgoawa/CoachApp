@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { TeamMember } from '../../core/teamMember/team-member';
@@ -14,6 +14,7 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./admin-entry.component.scss']
 })
 export class AdminEntryComponent implements OnInit {
+  @ViewChild('auto') auto: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   teamMemberList: TeamMember[];
   filteredTeamMembers: Observable<TeamMember[]>;

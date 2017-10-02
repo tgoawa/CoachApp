@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
@@ -23,6 +23,7 @@ enum Status {
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
+  @ViewChild('auto') auto: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   coachControl: FormControl = new FormControl();
   teamMembers: TeamMember[];
