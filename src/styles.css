@@ -11,13 +11,13 @@ body {
 .success {
   background-color: #afdda3;
   color: #329620;
-  border-radius: .5em;
+  border-radius: 2px;
   padding: .5em
 }
 
 .error {
   background-color: #ffcdd2;
   color: #b71c1c;
-  border-radius: .5em;
+  border-radius: 2px;
   padding: .5em
 }
