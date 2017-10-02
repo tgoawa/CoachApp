@@ -14,7 +14,7 @@
         <md-hint>Use your Windows password</md-hint>
         <md-error>This field is required</md-error>
       </md-form-field>
-      <button type="submit" md-raised-button color="accent">Click me!</button>
+      <button type="submit" md-raised-button color="accent" [disabled]="!loginForm.valid">Log in</button>
     </form>
   </md-card-content>
 </md-card>

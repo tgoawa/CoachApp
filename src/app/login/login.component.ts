@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
     const key = CryptoJS.enc.Utf8.parse('8080808080808080');
     const iv = CryptoJS.enc.Utf8.parse('8080808080808080');
     const encryptedUser: User = {
-      username: '',
-      password: ''
+      username: null,
+      password: null
     };
 
     encryptedUser.username = CryptoJS.AES.encrypt(this.loginForm.get('username').value, key, { iv: iv }).toString();
@@ -65,8 +65,8 @@ export class LoginComponent implements OnInit {
 
   private toFormGroup() {
     const formGroup = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      username: [null, [Validators.required, Validators.minLength(4)]],
+      password: [null, [Validators.required, Validators.minLength(8)]]
     });
 
     return formGroup;
