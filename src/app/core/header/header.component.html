@@ -6,6 +6,7 @@
   <span class="toolbar-spacer"></span>
   <md-icon>person</md-icon>
   <span>{{(defaultTeamMember$ | async)?.FirstName}} {{(defaultTeamMember$ | async)?.LastName}}</span>
+  <button md-button (click)="onLogout()">logout</button>
   <md-toolbar-row *ngIf="(defaultTeamMember$ | async)?.TeamMemberId !== (emulatedTeamMember$ | async)?.TeamMemberId">
     <span class="toolbar-spacer"></span>
     <span style="color: red">Logged in as: {{(emulatedTeamMember$ | async)?.FirstName}} {{(emulatedTeamMember$ | async)?.LastName}}</span>
