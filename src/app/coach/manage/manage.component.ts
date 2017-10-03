@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { TeamMember } from '../../core/teamMember/team-member';
 import { CoachTeamMember } from '../../core/models/coach-team-member';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-manage',
   templateUrl: './manage.component.html',
@@ -13,33 +15,24 @@ import { CoachTeamMember } from '../../core/models/coach-team-member';
 })
 export class ManageComponent implements OnInit {
   teamMemberControl: FormControl = new FormControl();
-  allCoachTeamMembers: CoachTeamMember;
-  uniqueCoaches: CoachTeamMember[];
+  allCoachTeamMembers: CoachTeamMember[];
+  uniqueCoaches: CoachTeamMember[] = [];
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService) { }
 
   ngOnInit() {
-
+    this.getCoachTeamMembers();
   }
 
   getCoachTeamMembers() {
     this.tmService.getCoachesTeamMembers()
     .subscribe(data => {
       this.allCoachTeamMembers = data;
-      this.createCoachArray(data);
+      this.uniqueCoaches = _.uniqBy(this.allCoachTeamMembers, 'CoachId');
+      console.log(this.uniqueCoaches);
     }, error => {
       this.logger.error(error);
     });
-  }
-
-  private createCoachArray(data: CoachTeamMember[]) {
-    for (let x = 0; x < data.length; x++) {
-      if (this.uniqueCoaches[x].CoachId === data[x].CoachId) {
-        continue;
-      } else {
-        this.uniqueCoaches.push(data[x]);
-      }
-    }
   }
 
 }
