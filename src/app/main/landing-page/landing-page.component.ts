@@ -25,6 +25,7 @@ enum Status {
 })
 export class LandingPageComponent implements OnInit {
   @ViewChild('auto') auto: ElementRef;
+  @ViewChild('coach') coach: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   coachControl: FormControl = new FormControl();
   teamMembers: TeamMember[];

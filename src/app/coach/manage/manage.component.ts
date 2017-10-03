@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
@@ -14,6 +14,7 @@ import * as _ from 'lodash';
   styleUrls: ['./manage.component.scss']
 })
 export class ManageComponent implements OnInit {
+  @ViewChild('auto') auto: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   allCoachTeamMembers: CoachTeamMember[];
   associatedTeamMembers: CoachTeamMember[];
