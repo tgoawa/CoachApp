@@ -4,7 +4,7 @@
     <md-form-field>
       <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto" placeholder="Select a Team Member">
     </md-form-field>
-    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapSelectedTeamMember()">
+    <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="onTeamMemberSelected()">
       <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
         {{ teammember.LastFirstName}}
       </md-option>
@@ -14,9 +14,9 @@
       <p><span class="mat-body-2">Name: </span>{{selectedTeamMember.TeamMemberFirstName}} {{selectedTeamMember.TeamMemberLastName}}</p>
       <p><span class="mat-body-2">Coach: </span>{{selectedTeamMember.CoachFirstName}} {{selectedTeamMember.CoachLastName}}</p>
       <md-form-field>
-        <input type="text" mdInput [formControl]="coachControl" [mdAutocomplete]="auto" placeholder="Select a Coach">
+        <input type="text" mdInput [formControl]="coachControl" [mdAutocomplete]="coach" placeholder="Select a Coach">
       </md-form-field>
-      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="mapCoachToTeamMember()">
+      <md-autocomplete #coach="mdAutocomplete" [displayWith]="displayName" (optionSelected)="onMapCoachToTeamMember()">
         <md-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
           {{ teammember.LastFirstName}}
         </md-option>

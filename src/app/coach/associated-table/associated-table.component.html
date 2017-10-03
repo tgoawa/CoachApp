@@ -1,15 +1,9 @@
 <h4 class="mat-subheading-1">Associated Team members</h4>
 <md-table #table [dataSource]="dataSource">
   <!-- First Name Column -->
-  <ng-container mdColumnDef="firstname">
-    <md-header-cell *mdHeaderCellDef> First Name </md-header-cell>
-    <md-cell *mdCellDef="let element"> {{element.TeamMemberFirstName}} </md-cell>
-  </ng-container>
-
-  <!-- Last Name Column -->
-  <ng-container mdColumnDef="lastname">
-    <md-header-cell *mdHeaderCellDef> Last Name </md-header-cell>
-    <md-cell *mdCellDef="let element"> {{element.TeamMemberLastName}} </md-cell>
+  <ng-container mdColumnDef="name">
+    <md-header-cell *mdHeaderCellDef> Team Member Name </md-header-cell>
+    <md-cell *mdCellDef="let element"> {{element.TeamMemberFirstName}} {{element.TeamMemberLastName}}</md-cell>
   </ng-container>
 
   <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>

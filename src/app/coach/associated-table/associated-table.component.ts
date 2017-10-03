@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import {DataSource} from '@angular/cdk/collections';
-import {Observable} from 'rxjs/Observable';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { CoachTeamMember } from '../../core/models/coach-team-member';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-associated-table',
@@ -11,9 +12,9 @@ import { CoachTeamMember } from '../../core/models/coach-team-member';
 })
 export class AssociatedTableComponent implements OnInit, OnChanges {
   @Input() data: CoachTeamMember[];
-  displayedColumns = ['firstname', 'lastname'];
+  displayedColumns = ['name'];
   dataSource: AssociatedDataSource;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.dataSource = new AssociatedDataSource(this.data);
@@ -21,6 +22,10 @@ export class AssociatedTableComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.dataSource = new AssociatedDataSource(this.data);
+  }
+
+  onAssignCoach(id: number) {
+    this.router.navigate(['home', {id: id}]);
   }
 
 }
@@ -34,5 +39,5 @@ export class AssociatedDataSource extends DataSource<CoachTeamMember> {
     return Observable.of(this.data);
   }
 
-  disconnect() {}
+  disconnect() { }
 }

@@ -10,6 +10,7 @@ import { CoachTeamMember, TeamMemberCoachModel } from '../../core/models/coach-t
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMember } from '../../core/teamMember/team-member';
+import { ActivatedRoute } from '@angular/router';
 
 enum Status {
   success = 1,
@@ -35,18 +36,26 @@ export class LandingPageComponent implements OnInit {
 
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService,
-    private snackBar: MdSnackBar) { }
+    private snackBar: MdSnackBar,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getTeamMembers();
     this.getCoachedTeamMembers();
+    // following is for managing optional team member id
+    // this.route.params.subscribe( params => {
+    //   console.log(params);
+    //   if (params['id']) {
+    //     this.setSelectedTeamMember(params['id']);
+    //   }
+    // });
   }
 
   displayName(teamMember: TeamMember) {
     return teamMember ? teamMember.LastFirstName : teamMember;
   }
 
-  mapSelectedTeamMember() {
+  onTeamMemberSelected() {
     this.resetMessages();
     const teamMember: TeamMember = this.teamMemberControl.value;
     this.selectedTeamMember = new CoachTeamMember();
@@ -60,7 +69,7 @@ export class LandingPageComponent implements OnInit {
     this.noCoach(teamMember);
   }
 
-  mapCoachToTeamMember() {
+  onMapCoachToTeamMember() {
     const coach: TeamMember = this.coachControl.value;
     this.teamMemberCoach = new TeamMemberCoachModel();
     this.teamMemberCoach.CoachId = coach.TeamMemberId;
