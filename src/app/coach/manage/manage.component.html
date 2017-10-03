@@ -4,15 +4,15 @@
   <md-card-content>
     <md-form-field>
       <input type="text" mdInput [formControl]="teamMemberControl" [mdAutocomplete]="auto" placeholder="Select a Coach">
-      <md-hint>Only team members that are currently coaches will be shown</md-hint>
+      <md-hint>Only current coaches will be displayed</md-hint>
     </md-form-field>
     <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="onCoachSelected()">
       <md-option *ngFor="let coach of filteredTeamMembers | async" [value]="coach">
         {{ coach.CoachLastName}}, {{ coach.CoachFirstName }}
       </md-option>
     </md-autocomplete>
-    <section *ngIf="selectedCoach">
-      table
+    <section *ngIf="associatedTeamMembers">
+      <app-associated-table [data]="associatedTeamMembers"></app-associated-table>
     </section>
   </md-card-content>
 </md-card>
