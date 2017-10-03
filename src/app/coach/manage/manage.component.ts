@@ -16,7 +16,11 @@ import * as _ from 'lodash';
 export class ManageComponent implements OnInit {
   teamMemberControl: FormControl = new FormControl();
   allCoachTeamMembers: CoachTeamMember[];
-  uniqueCoaches: CoachTeamMember[] = [];
+  associatedTeamMembers: CoachTeamMember[];
+  uniqueCoaches: CoachTeamMember[];
+  filteredTeamMembers: Observable<CoachTeamMember[]>;
+  selectedCoach: CoachTeamMember;
+
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService) { }
 
@@ -24,15 +28,47 @@ export class ManageComponent implements OnInit {
     this.getCoachTeamMembers();
   }
 
-  getCoachTeamMembers() {
+  displayName(teamMember: CoachTeamMember) {
+    return teamMember ? teamMember.CoachLastName + ', ' + teamMember.CoachFirstName : teamMember;
+  }
+
+  onCoachSelected() {
+    this.selectedCoach = new CoachTeamMember();
+    this.selectedCoach = this.teamMemberControl.value;
+    this.mapTeamMembersToCoach(this.selectedCoach.CoachId);
+  }
+
+  private filter(val: string): CoachTeamMember[] {
+    return this.uniqueCoaches.filter(coach =>
+      coach.CoachLastName.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  private getCoachTeamMembers() {
     this.tmService.getCoachesTeamMembers()
     .subscribe(data => {
       this.allCoachTeamMembers = data;
       this.uniqueCoaches = _.uniqBy(this.allCoachTeamMembers, 'CoachId');
-      console.log(this.uniqueCoaches);
+      this.uniqueCoaches = _.sortBy(this.uniqueCoaches, 'CoachLastName');
+      this.setFilteredTeamMembers();
     }, error => {
       this.logger.error(error);
     });
+  }
+
+  private mapTeamMembersToCoach(id: number) {
+    this.associatedTeamMembers = [];
+    for (let x = 0; x < this.allCoachTeamMembers.length; x++) {
+      if (this.allCoachTeamMembers[x].CoachId === id) {
+        this.associatedTeamMembers.push(this.allCoachTeamMembers[x]);
+      }
+    }
+  }
+
+  private setFilteredTeamMembers() {
+    this.filteredTeamMembers = this.teamMemberControl.valueChanges
+      .startWith(null)
+      .map(coach => coach && typeof coach === 'object' ? coach.CoachLastName : coach)
+      .map(val => val ? this.filter(val) : this.uniqueCoaches.slice());
   }
 
 }

@@ -6,7 +6,7 @@ import { CoachRoutingModule } from './coach-routing.module';
 import { ManageComponent } from './manage/manage.component';
 import { CoachComponent } from './coach.component';
 
-import { MdCardModule, MatAutocompleteModule, MdInputModule, MdListModule } from '@angular/material';
+import { MdCardModule, MatAutocompleteModule, MdInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -15,8 +15,7 @@ import { MdCardModule, MatAutocompleteModule, MdInputModule, MdListModule } from
     ReactiveFormsModule,
     MdCardModule,
     MatAutocompleteModule,
-    MdInputModule,
-    MdListModule
+    MdInputModule
   ],
   declarations: [ManageComponent, CoachComponent]
 })
