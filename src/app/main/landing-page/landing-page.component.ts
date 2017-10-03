@@ -43,13 +43,6 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     this.getTeamMembers();
     this.getCoachedTeamMembers();
-    // following is for managing optional team member id
-    // this.route.params.subscribe( params => {
-    //   console.log(params);
-    //   if (params['id']) {
-    //     this.setSelectedTeamMember(params['id']);
-    //   }
-    // });
   }
 
   displayName(teamMember: TeamMember) {
@@ -59,14 +52,7 @@ export class LandingPageComponent implements OnInit {
   onTeamMemberSelected() {
     this.resetMessages();
     const teamMember: TeamMember = this.teamMemberControl.value;
-    this.selectedTeamMember = new CoachTeamMember();
-
-    for (let x = 0; x < this.coachedTeamMembers.length; x++) {
-      if (teamMember.TeamMemberId === this.coachedTeamMembers[x].TeamMemberId) {
-        this.selectedTeamMember = this.coachedTeamMembers[x];
-      }
-    }
-
+    this.setSelectedTeamMember(teamMember.TeamMemberId);
     this.noCoach(teamMember);
   }
 
@@ -112,6 +98,14 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
+  private routeHasParam() {
+    this.route.params.subscribe( params => {
+      if (params['id']) {
+        this.setSelectedTeamMember(params['id']);
+      }
+    });
+  }
+
   private filter(val: string): TeamMember[] {
     return this.teamMembers.filter(teamMember =>
       teamMember.LastFirstName.toLowerCase().indexOf(val.toLowerCase()) === 0);
@@ -132,6 +126,7 @@ export class LandingPageComponent implements OnInit {
     this.tmService.getCoachesTeamMembers()
       .subscribe(data => {
         this.coachedTeamMembers = data;
+        this.routeHasParam();
         this.logger.log('Retrieved Coach team members list');
       }, error => {
         this.logger.error(error);
@@ -156,6 +151,16 @@ export class LandingPageComponent implements OnInit {
       .startWith(null)
       .map(teamMember => teamMember && typeof teamMember === 'object' ? teamMember.TeamMemberLastName : teamMember)
       .map(val => val ? this.filter(val) : this.teamMembers.slice());
+  }
+
+  private setSelectedTeamMember(id: number) {
+    this.selectedTeamMember = new CoachTeamMember();
+
+    for (let x = 0; x < this.coachedTeamMembers.length; x++) {
+      if (+id === this.coachedTeamMembers[x].TeamMemberId) {
+        this.selectedTeamMember = this.coachedTeamMembers[x];
+      }
+    }
   }
 
   private openSnackBar(message: string) {

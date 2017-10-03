@@ -25,7 +25,7 @@ export class AssociatedTableComponent implements OnInit, OnChanges {
   }
 
   onAssignCoach(id: number) {
-    this.router.navigate(['home', {id: id}]);
+    this.router.navigate(['home', {id}]);
   }
 
 }
