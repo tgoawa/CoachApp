@@ -117,7 +117,7 @@ export class LandingPageComponent implements OnInit {
 
   private setCoach(coachId: number) {
     this.selectedTeamMemberCoach = new TeamMember();
-    if (coachId === null) {
+    if (coachId === 0) {
       this.selectedTeamMemberCoach.FirstName = '';
       this.selectedTeamMemberCoach.LastName = '';
     } else {

@@ -52,7 +52,7 @@ export class ManageComponent implements OnInit {
 
   private createArrayOfCoaches() {
     for (let x = 0; x < this.allTeamMembers.length; x++) {
-      if (this.allTeamMembers[x].CoachId !== null) {
+      if (this.allTeamMembers[x].CoachId !== 0) {
         this.createCoachArray(this.allTeamMembers[x].CoachId);
       }
     }
