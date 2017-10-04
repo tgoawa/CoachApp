@@ -3,7 +3,7 @@
   <!-- First Name Column -->
   <ng-container mdColumnDef="name">
     <md-header-cell *mdHeaderCellDef> Team Member Name </md-header-cell>
-    <md-cell *mdCellDef="let element"><button md-button (click)="onAssignCoach(element.TeamMemberId)">{{element.TeamMemberFirstName}} {{element.TeamMemberLastName}}</button></md-cell>
+    <md-cell *mdCellDef="let element"><button md-button (click)="onAssignCoach(element.TeamMemberId)">{{element.LastFirstName}}</button></md-cell>
   </ng-container>
 
   <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>

@@ -3,6 +3,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Router } from '@angular/router';
+import { TeamMember } from '../../core/teamMember/team-member';
 
 @Component({
   selector: 'app-associated-table',
@@ -10,33 +11,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./associated-table.component.scss']
 })
 export class AssociatedTableComponent implements OnInit, OnChanges {
-  // @Input() data: CoachTeamMember[];
-  // displayedColumns = ['name'];
-  // dataSource: AssociatedDataSource;
-  // constructor(private router: Router) { }
+  @Input() data: TeamMember[];
+  displayedColumns = ['name'];
+  dataSource: AssociatedDataSource;
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    // this.dataSource = new AssociatedDataSource(this.data);
+    this.dataSource = new AssociatedDataSource(this.data);
   }
 
   ngOnChanges() {
-    // this.dataSource = new AssociatedDataSource(this.data);
+    this.dataSource = new AssociatedDataSource(this.data);
   }
 
-  // onAssignCoach(id: number) {
-  //   this.router.navigate(['home', {id}]);
-  // }
+  onAssignCoach(id: number) {
+    this.router.navigate(['home', {id}]);
+  }
 
 }
 
-// export class AssociatedDataSource extends DataSource<CoachTeamMember> {
+export class AssociatedDataSource extends DataSource<TeamMember> {
 
-//   constructor(private data: CoachTeamMember[]) {
-//     super();
-//   }
-//   connect(): Observable<CoachTeamMember[]> {
-//     return Observable.of(this.data);
-//   }
+  constructor(private data: TeamMember[]) {
+    super();
+  }
+  connect(): Observable<TeamMember[]> {
+    return Observable.of(this.data);
+  }
 
-//   disconnect() { }
-// }
+  disconnect() { }
+}

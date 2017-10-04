@@ -34,7 +34,7 @@ export class ManageComponent implements OnInit {
   onCoachSelected() {
     this.selectedCoach = new TeamMember();
     this.selectedCoach = this.teamMemberControl.value;
-    this.mapTeamMembersToCoach(this.selectedCoach.CoachId);
+    this.mapTeamMembersToCoach(this.selectedCoach.TeamMemberId);
   }
 
   private createCoachArray(coachId: number) {
