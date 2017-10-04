@@ -51,8 +51,7 @@ export class LandingPageComponent implements OnInit {
   onTeamMemberSelected() {
     this.resetMessages();
     const teamMember: TeamMember = this.teamMemberControl.value;
-    this.setSelectedTeamMember(teamMember);
-    this.setCoach(teamMember.CoachId);
+    this.setSelectedTeamMember(teamMember.TeamMemberId);
   }
 
   onMapCoachToTeamMember() {
@@ -98,6 +97,7 @@ export class LandingPageComponent implements OnInit {
       .subscribe(data => {
         this.teamMembers = data;
         this.setFilteredTeamMembers(this.teamMembers);
+        this.routeHasParam();
         this.logger.log('team members retrieved!');
       }, error => {
         this.logger.error(error);
@@ -129,8 +129,13 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  private setSelectedTeamMember(teamMember: TeamMember) {
-    this.selectedTeamMember = teamMember;
+  private setSelectedTeamMember(id: number) {
+    for (let x = 0; x < this.teamMembers.length; x++) {
+      if (+id === this.teamMembers[x].TeamMemberId) {
+        this.selectedTeamMember = this.teamMembers[x];
+      }
+    }
+    this.setCoach(this.selectedTeamMember.CoachId);
   }
 
   private openSnackBar(message: string) {
