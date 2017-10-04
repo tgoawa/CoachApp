@@ -8,11 +8,12 @@
     </md-form-field>
     <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayName" (optionSelected)="onCoachSelected()">
       <md-option *ngFor="let coach of filteredTeamMembers | async" [value]="coach">
-        {{ coach.CoachLastName}}, {{ coach.CoachFirstName }}
+        {{ coach.LastFirstName}}
       </md-option>
     </md-autocomplete>
     <section *ngIf="associatedTeamMembers">
-      <app-associated-table [data]="associatedTeamMembers"></app-associated-table>
+      test
+      <!-- <app-associated-table [data]="associatedTeamMembers"></app-associated-table> -->
     </section>
   </md-card-content>
 </md-card>
