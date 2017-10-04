@@ -11,8 +11,8 @@
     </md-autocomplete>
     <section *ngIf="selectedTeamMember">
       <h2>Team Member</h2>
-      <p><span class="mat-body-2">Name: </span>{{selectedTeamMember.TeamMemberFirstName}} {{selectedTeamMember.TeamMemberLastName}}</p>
-      <p><span class="mat-body-2">Coach: </span>{{selectedTeamMember.CoachFirstName}} {{selectedTeamMember.CoachLastName}}</p>
+      <p><span class="mat-body-2">Name: </span>{{selectedTeamMember.FirstName}} {{selectedTeamMember.LastName}}</p>
+      <p><span class="mat-body-2">Coach: </span>{{selectedTeamMemberCoach.FirstName}} {{selectedTeamMemberCoach.LastName}}</p>
       <md-form-field>
         <input type="text" mdInput [formControl]="coachControl" [mdAutocomplete]="coach" placeholder="Select a Coach">
       </md-form-field>
@@ -21,12 +21,7 @@
           {{ teammember.LastFirstName}}
         </md-option>
       </md-autocomplete>
-      <ng-container *ngIf="selectedTeamMember.CoachId !== 0; else noCoach">
         <button md-raised-button color="accent" (click)="updateCoach()">Update Coach</button>
-      </ng-container>
-      <ng-template #noCoach>
-        <button md-raised-button color="accent" (click)="saveNewCoach()">Assign Coach</button>
-      </ng-template>
       <ng-container *ngIf="messageStatus === 1">
         <span class="mat-caption success">Coach updated successfully!</span>
       </ng-container>
