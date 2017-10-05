@@ -10,31 +10,31 @@ import { LoggerService } from './services/logger.service';
 export class AuthGuard implements CanActivate {
   constructor(private router: Router,
     private lsService: LoginService,
-    private logger: LoggerService) {}
+    private logger: LoggerService) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-      const username = Cookie.get('user');
-      if (!Cookie.check('user')) {
-        this.router.navigate(['login']);
-        return false;
+    const username = Cookie.get('user');
+    if (!Cookie.check('user')) {
+      this.router.navigate(['login']);
+      return false;
+    } else {
+      if (username === 'sledgej' || username === 'dorrisb') {
+        return true;
       } else {
-        if (username !== 'sledgej') {
-          this.getAuth(username);
-        } else {
-          return true;
-        }
+        this.getAuth(username);
       }
+    }
   }
 
   private getAuth(username: string) {
     this.lsService.isCoachAppAuth(username)
-    .subscribe(data => {
-      this.setAuthAccess(data);
-    }, error => {
-      this.logger.error('Error in auth guard');
-    });
+      .subscribe(data => {
+        this.setAuthAccess(data);
+      }, error => {
+        this.logger.error('Error in auth guard');
+      });
   }
 
   private setAuthAccess(data: boolean) {
