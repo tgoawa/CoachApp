@@ -43,6 +43,7 @@ export class ManageComponent implements OnInit {
         this.coaches.push(this.allTeamMembers[x]);
       }
     }
+    this.coaches = _.uniqBy(this.coaches, 'TeamMemberId');
   }
 
   private filter(val: string): TeamMember[] {
