@@ -7,6 +7,7 @@ import { AdminEntryComponent } from './admin-entry/admin-entry.component';
 import { AdminComponent } from './admin.component';
 
 import { MdCardModule, MatAutocompleteModule, MdInputModule, MdButtonModule } from '@angular/material';
+import { NoAccessComponent } from './no-access/no-access.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { MdCardModule, MatAutocompleteModule, MdInputModule, MdButtonModule } fr
     MdInputModule,
     MdButtonModule
   ],
-  declarations: [AdminEntryComponent, AdminComponent]
+  declarations: [AdminEntryComponent, AdminComponent, NoAccessComponent]
 })
 export class AdminModule { }

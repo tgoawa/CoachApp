@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
+import { LoginService } from '../../login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-entry',
@@ -22,7 +24,9 @@ export class AdminEntryComponent implements OnInit {
   selectedTeamMember: Observable<TeamMember>;
 
   constructor(private logger: LoggerService,
-    private tmService: TeamMemberService) { }
+    private tmService: TeamMemberService,
+    private lsService: LoginService,
+    private router: Router) { }
 
   ngOnInit() {
     this.getTeamMembers();
@@ -48,6 +52,23 @@ export class AdminEntryComponent implements OnInit {
   assignEmulatedTeamMember() {
     const selectedTeamMember = this.teamMemberControl.value;
     this.tmService.setEmulatedTeamMember(selectedTeamMember);
+    this.isCoachAppAuth(selectedTeamMember.UserName);
+  }
+
+  private isCoachAppAuth(username: string) {
+    this.lsService.isCoachAppAuth(username)
+      .subscribe(data => {
+        this.setAppAccess(data);
+      }, error => {
+        this.logger.error(error);
+      });
+  }
+
+  private setAppAccess(data: boolean) {
+    if (!data) {
+      this.router.navigate(['admin/admin-no-access']);
+      this.tmService.toggleAccess(false);
+    }
   }
 
   private setFilteredTeamMembers() {

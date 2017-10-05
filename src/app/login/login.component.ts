@@ -69,7 +69,9 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home']);
     } else {
       this.logger.log('User does not have access');
-      this.router.navigate(['/no-access']);
+      Cookie.set('user', this.loginForm.get('username').value, 45);
+      this.router.navigate(['/home']);
+      // this.router.navigate(['/no-access']);
     }
   }
 

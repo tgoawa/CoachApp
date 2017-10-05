@@ -1,8 +1,10 @@
 <md-toolbar class="mat-typography transparent-background">
   <img src="../../assets/images/schenck-logo.png">
-  <button md-button color="primary" routerLink="/home">Team Member</button>
-  <button md-button color="primary" routerLink="/coach">Coach</button>
-  <button md-button color="primary" routerLink="/admin">Admin</button>
+  <ng-container *ngIf="hasAccess$ | async">
+    <button md-button color="primary" routerLink="/home">Team Member</button>
+    <button md-button color="primary" routerLink="/coach">Coach</button>
+    <button md-button color="primary" routerLink="/admin">Admin</button>
+  </ng-container>
   <span class="toolbar-spacer"></span>
   <md-icon>person</md-icon>
   <span>{{(defaultTeamMember$ | async)?.FirstName}} {{(defaultTeamMember$ | async)?.LastName}}</span>

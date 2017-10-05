@@ -14,15 +14,19 @@ const api = environment.envApi;
 export class TeamMemberService {
   defaultTeamMember$: Observable<TeamMember>;
   emulatedTeamMember$: Observable<TeamMember>;
+  hasAccess$: Observable<Boolean>;
   defaultTeamMember: TeamMember;
   private _defaultTeamMember: BehaviorSubject<TeamMember>;
+  private _hasAccess: BehaviorSubject<boolean>;
   private _emulatedTeamMember: BehaviorSubject<TeamMember>;
 
   constructor(private http: Http, private logger: LoggerService) {
     this._defaultTeamMember = <BehaviorSubject<TeamMember>>new BehaviorSubject({});
     this._emulatedTeamMember = <BehaviorSubject<TeamMember>>new BehaviorSubject({});
+    this._hasAccess = new BehaviorSubject<boolean>(true);
     this.defaultTeamMember$ = this._defaultTeamMember.asObservable();
     this.emulatedTeamMember$ = this._emulatedTeamMember.asObservable();
+    this.hasAccess$ = this._hasAccess.asObservable();
   }
 
   getTeamMember(userName: string) {
@@ -49,6 +53,10 @@ export class TeamMemberService {
 
   setEmulatedTeamMember(teamMember: TeamMember) {
     this._emulatedTeamMember.next(Object.assign({}, teamMember));
+  }
+
+  toggleAccess(val: boolean) {
+    this._hasAccess.next(val);
   }
 
   resetEmulatedTeamMember() {

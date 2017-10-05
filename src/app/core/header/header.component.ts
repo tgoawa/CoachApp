@@ -14,16 +14,20 @@ import { Cookie } from 'ng2-cookies';
 export class HeaderComponent implements OnInit {
   defaultTeamMember$: Observable<TeamMember>;
   emulatedTeamMember$:  Observable<TeamMember>;
+  hasAccess$: Observable<Boolean>;
 
   constructor(private tmService: TeamMemberService, private router: Router) { }
 
   ngOnInit() {
     this.defaultTeamMember$ = this.tmService.defaultTeamMember$;
     this.emulatedTeamMember$ = this.tmService.emulatedTeamMember$;
+    this.hasAccess$ = this.tmService.hasAccess$;
   }
 
   resetToDefaultTeamMember() {
     this.tmService.resetEmulatedTeamMember();
+    this.router.navigate(['/admin']);
+    this.tmService.toggleAccess(true);
   }
 
   onLogout() {
