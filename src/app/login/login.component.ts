@@ -30,6 +30,16 @@ export class LoginComponent implements OnInit {
     this.checkUser(encUser);
   }
 
+  private authAccess() {
+    const user: string = this.loginForm.get('username').value;
+    this.lgService.isCoachAppAuth(user)
+    .subscribe(data => {
+      this.setAppAccess(data);
+    }, error => {
+      this.logger.error(error);
+    });
+  }
+
   private checkUser(user: User) {
     this.lgService.checkStatus(user)
       .subscribe(data => {
@@ -53,13 +63,21 @@ export class LoginComponent implements OnInit {
     return encryptedUser;
   }
 
-  private setAuthStatus(data: boolean) {
+  private setAppAccess(data: boolean) {
     if (data) {
       Cookie.set('user', this.loginForm.get('username').value, 45);
       this.router.navigate(['/home']);
     } else {
+      this.logger.log('User does not have access');
+      this.router.navigate(['/no-access']);
+    }
+  }
+
+  private setAuthStatus(data: boolean) {
+    if (data) {
+      this.authAccess();
+    } else {
       this.logger.error('Login Failed!');
-      console.log('Error logging in');
     }
   }
 

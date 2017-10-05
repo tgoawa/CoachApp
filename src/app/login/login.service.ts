@@ -16,4 +16,9 @@ export class LoginService {
     return this.http.post(api + 'UserService/IsUserValid/', user)
     .map(response => response.json(), error => console.log(error));
   }
+
+  isCoachAppAuth(username: string) {
+    return this.http.get(api + 'UserService/IsCoachAppAuthorized/' + username)
+    .map(response => response.json(), error => console.log('error verifying access!'));
+  }
 }

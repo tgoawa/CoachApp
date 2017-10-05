@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { MainModule } from './main/main.module';
+import { NoAccessComponent } from './no-access/no-access.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    NoAccessComponent
   ],
   imports: [
     AppRoutingModule,
