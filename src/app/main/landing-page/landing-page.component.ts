@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
@@ -30,6 +30,7 @@ export class LandingPageComponent implements OnInit {
   coachControl: FormControl = new FormControl();
   teamMembers: TeamMember[];
   filteredTeamMembers: Observable<TeamMember[]>;
+  filteredCoaches: Observable<TeamMember[]>;
   selectedTeamMember: TeamMember;
   selectedTeamMemberCoach: TeamMember;
   teamMemberCoach: TeamMemberCoachModel;
@@ -80,7 +81,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   private routeHasParam() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       if (params['id']) {
         this.setSelectedTeamMember(params['id']);
       }
@@ -97,6 +98,7 @@ export class LandingPageComponent implements OnInit {
       .subscribe(data => {
         this.teamMembers = data;
         this.setFilteredTeamMembers(this.teamMembers);
+        this.setFilteredCoaches(this.teamMembers);
         this.routeHasParam();
         this.logger.log('team members retrieved!');
       }, error => {
@@ -111,7 +113,14 @@ export class LandingPageComponent implements OnInit {
   private setFilteredTeamMembers(teamMembers: TeamMember[]) {
     this.filteredTeamMembers = this.teamMemberControl.valueChanges
       .startWith(null)
-      .map(teamMember => teamMember && typeof teamMember === 'object' ? teamMember.TeamMemberLastName : teamMember)
+      .map(teamMember => teamMember && typeof teamMember === 'object' ? teamMember.LastName : teamMember)
+      .map(val => val ? this.filter(val) : teamMembers.slice());
+  }
+
+  private setFilteredCoaches(teamMembers: TeamMember[]) {
+    this.filteredCoaches = this.coachControl.valueChanges
+      .startWith(null)
+      .map(coach => coach && typeof coach === 'object' ? coach.LastName : coach)
       .map(val => val ? this.filter(val) : teamMembers.slice());
   }
 
