@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { MdToolbarModule, MdButtonModule, MdIconModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule} from '@angular/material';
 
 import { throwIfAlreadyLoaded } from './module-import.guard';
 import { HeaderComponent } from './header/header.component';
@@ -17,9 +17,9 @@ import { TeamMemberService } from './teamMember/team-member.service';
     CommonModule,
     HttpModule,
     RouterModule,
-    MdToolbarModule,
-    MdButtonModule,
-    MdIconModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ],
   exports: [
     HeaderComponent,

@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MdInputModule, MdButtonModule, MdCardModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatCardModule } from '@angular/material';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,9 +29,9 @@ import { NoAccessComponent } from './no-access/no-access.component';
     HttpModule,
     MainModule,
     ReactiveFormsModule,
-    MdInputModule,
-    MdButtonModule,
-    MdCardModule
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

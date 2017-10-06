@@ -6,7 +6,7 @@ import { CoachRoutingModule } from './coach-routing.module';
 import { ManageComponent } from './manage/manage.component';
 import { CoachComponent } from './coach.component';
 
-import { MdCardModule, MatAutocompleteModule, MdInputModule, MatTableModule, MdButtonModule } from '@angular/material';
+import { MatCardModule, MatAutocompleteModule, MatInputModule, MatTableModule, MatButtonModule } from '@angular/material';
 import { AssociatedTableComponent } from './associated-table/associated-table.component';
 
 @NgModule({
@@ -14,11 +14,11 @@ import { AssociatedTableComponent } from './associated-table/associated-table.co
     CommonModule,
     CoachRoutingModule,
     ReactiveFormsModule,
-    MdCardModule,
+    MatCardModule,
     MatAutocompleteModule,
-    MdInputModule,
+    MatInputModule,
     MatTableModule,
-    MdButtonModule
+    MatButtonModule
   ],
   declarations: [ManageComponent, CoachComponent, AssociatedTableComponent]
 })

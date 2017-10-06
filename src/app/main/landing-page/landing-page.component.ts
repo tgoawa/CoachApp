@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/startWith';
@@ -38,7 +38,7 @@ export class LandingPageComponent implements OnInit {
 
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService,
-    private snackBar: MdSnackBar,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
