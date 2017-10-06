@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { TeamMember } from '../../core/teamMember/team-member';
 import { LoggerService } from '../../core/services/logger.service';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -15,13 +16,15 @@ import { Router } from '@angular/router';
   templateUrl: './admin-entry.component.html',
   styleUrls: ['./admin-entry.component.scss']
 })
-export class AdminEntryComponent implements OnInit {
+export class AdminEntryComponent implements OnInit, OnDestroy {
   @ViewChild('auto') auto: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   teamMemberList: TeamMember[];
   filteredTeamMembers: Observable<TeamMember[]>;
   defaultTeamMember$: Observable<TeamMember>;
   selectedTeamMember: Observable<TeamMember>;
+
+  private Subscription: Subscription;
 
   constructor(private logger: LoggerService,
     private tmService: TeamMemberService,
@@ -34,8 +37,12 @@ export class AdminEntryComponent implements OnInit {
     this.selectedTeamMember = this.teamMemberControl.valueChanges;
   }
 
+  ngOnDestroy() {
+    this.Subscription.unsubscribe();
+  }
+
   getTeamMembers() {
-    this.tmService.getTeamMembers()
+   this.Subscription = this.tmService.getTeamMembers()
       .subscribe(data => {
         this.logger.log('List of team members retrieved');
         this.teamMemberList = data;
@@ -56,12 +63,13 @@ export class AdminEntryComponent implements OnInit {
   }
 
   private isCoachAppAuth(username: string) {
-    this.lsService.isCoachAppAuth(username)
+   const subscription =  this.lsService.isCoachAppAuth(username)
       .subscribe(data => {
         this.setAppAccess(data);
       }, error => {
         this.logger.error(error);
       });
+    this.Subscription.add(subscription);
   }
 
   private setAppAccess(data: boolean) {
