@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { TeamMember } from '../../core/teamMember/team-member';
 
 import * as _ from 'lodash';
@@ -12,7 +13,7 @@ import * as _ from 'lodash';
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.scss']
 })
-export class ManageComponent implements OnInit {
+export class ManageComponent implements OnInit, OnDestroy {
   @ViewChild('auto') auto: ElementRef;
   teamMemberControl: FormControl = new FormControl();
   allTeamMembers: TeamMember[];
@@ -20,11 +21,17 @@ export class ManageComponent implements OnInit {
   filteredTeamMembers: Observable<TeamMember[]>;
   coaches: TeamMember[] = [];
   selectedCoach: TeamMember;
+
+  private Subscription: Subscription;
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService) { }
 
   ngOnInit() {
     this.getTeamMembers();
+  }
+
+  ngOnDestroy() {
+    this.Subscription.unsubscribe();
   }
 
   displayName(teamMember: TeamMember) {
@@ -60,7 +67,7 @@ export class ManageComponent implements OnInit {
   }
 
   private getTeamMembers() {
-    this.tmService.getTeamMembers()
+    this.Subscription = this.tmService.getTeamMembers()
     .subscribe(data => {
       this.allTeamMembers = data;
       this.createArrayOfCoaches();
