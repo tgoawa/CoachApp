@@ -72,6 +72,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   updateCoach() {
     if (this.coachControl.value === null) {
+      this.openSnackBar('Please select a coach');
       return;
     } else {
       const subscription = this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
