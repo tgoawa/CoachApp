@@ -80,12 +80,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           this.openSnackBar('Coach updated!');
           this.messageStatus = 1;
           this.updateCoachName();
+          this.subscription.add(subscription);
         }, error => {
           this.logger.error(error);
           this.messageStatus = 2;
           this.openSnackBar('Error updating coach!');
         });
-        this.subscription.add(subscription);
     }
   }
 
