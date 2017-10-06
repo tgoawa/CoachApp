@@ -108,8 +108,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.subscription = this.tmService.getTeamMembers()
       .subscribe(data => {
         this.teamMembers = data;
-        this.setFilteredTeamMembers(this.teamMembers);
-        this.setFilteredCoaches(this.teamMembers);
+        this.filteredTeamMembers = this.setFilteredTeamMembers(this.teamMembers, this.teamMemberControl);
+        this.filteredCoaches = this.setFilteredTeamMembers(this.teamMembers, this.coachControl);
         this.routeHasParam();
         this.logger.log('team members retrieved!');
       }, error => {
@@ -121,18 +121,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.messageStatus = 0;
   }
 
-  private setFilteredTeamMembers(teamMembers: TeamMember[]) {
-    this.filteredTeamMembers = this.teamMemberControl.valueChanges
+  private setFilteredTeamMembers(data: TeamMember[], formControl: FormControl) {
+    const filteredData = formControl.valueChanges
       .startWith(null)
       .map(teamMember => teamMember && typeof teamMember === 'object' ? teamMember.LastName : teamMember)
-      .map(val => val ? this.filter(val) : teamMembers.slice());
-  }
-
-  private setFilteredCoaches(teamMembers: TeamMember[]) {
-    this.filteredCoaches = this.coachControl.valueChanges
-      .startWith(null)
-      .map(coach => coach && typeof coach === 'object' ? coach.LastName : coach)
-      .map(val => val ? this.filter(val) : teamMembers.slice());
+      .map(val => val ? this.filter(val) : data.slice());
+      return filteredData;
   }
 
   private setCoach(coachId: number) {
