@@ -126,7 +126,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       .startWith(null)
       .map(teamMember => teamMember && typeof teamMember === 'object' ? teamMember.LastName : teamMember)
       .map(val => val ? this.filter(val) : data.slice());
-      return filteredData;
+    return filteredData;
   }
 
   private setCoach(coachId: number) {
