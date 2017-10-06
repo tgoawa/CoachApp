@@ -94,9 +94,10 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     const subscription = this.route.params.subscribe(params => {
       if (params['id']) {
         this.selectedTeamMember = this.getSelectedTeamMember(params['id']);
+        this.setCoach(this.selectedTeamMember.CoachId);
       }
+      this.subscription.add(subscription);
     });
-    this.subscription.add(subscription);
   }
 
   private filter(val: string): TeamMember[] {
