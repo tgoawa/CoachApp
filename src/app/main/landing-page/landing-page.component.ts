@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -23,7 +24,7 @@ enum Status {
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, OnDestroy {
   @ViewChild('auto') auto: ElementRef;
   @ViewChild('coach') coach: ElementRef;
   teamMemberControl: FormControl = new FormControl();
@@ -36,6 +37,8 @@ export class LandingPageComponent implements OnInit {
   teamMemberCoach: TeamMemberCoachModel;
   messageStatus: Status;
 
+  private subscription: Subscription;
+
   constructor(private tmService: TeamMemberService,
     private logger: LoggerService,
     private snackBar: MatSnackBar,
@@ -43,6 +46,10 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit() {
     this.getTeamMembers();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   displayName(teamMember: TeamMember) {
@@ -67,7 +74,7 @@ export class LandingPageComponent implements OnInit {
     if (this.coachControl.value === null) {
       return;
     } else {
-      this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
+      const subscription = this.tmService.updateTeamMemberCoach(this.teamMemberCoach)
         .subscribe(data => {
           this.openSnackBar('Coach updated!');
           this.messageStatus = 1;
@@ -77,6 +84,7 @@ export class LandingPageComponent implements OnInit {
           this.messageStatus = 2;
           this.openSnackBar('Error updating coach!');
         });
+        this.subscription.add(subscription);
     }
   }
 
@@ -94,7 +102,7 @@ export class LandingPageComponent implements OnInit {
   }
 
   private getTeamMembers() {
-    this.tmService.getTeamMembers()
+    this.subscription = this.tmService.getTeamMembers()
       .subscribe(data => {
         this.teamMembers = data;
         this.setFilteredTeamMembers(this.teamMembers);
