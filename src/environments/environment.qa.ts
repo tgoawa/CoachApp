@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  envApi: 'http://webdqa.schencksolutions.com:1016/'
+  envApi: 'http://webqa.schencksolutions.com:1016/'
 };
