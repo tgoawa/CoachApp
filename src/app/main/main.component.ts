@@ -11,10 +11,12 @@ import { Cookie } from 'ng2-cookies';
 })
 export class MainComponent implements OnInit {
   userName: string;
+  defaultTeamMember$: Observable<TeamMember>;
 
   constructor(private tmService: TeamMemberService) { }
 
   ngOnInit() {
+    this.defaultTeamMember$ = this.tmService.defaultTeamMember$;
     this.userName = Cookie.get('user');
     this.tmService.getTeamMember(this.userName);
   }
