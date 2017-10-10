@@ -25,7 +25,7 @@ import { TeamMemberService } from './teamMember/team-member.service';
     HeaderComponent,
   ],
   declarations: [HeaderComponent],
-  providers: [ LoggerService, AuthGuard, TeamMemberService]
+  providers: [ LoggerService, AuthGuard, TeamMemberService ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

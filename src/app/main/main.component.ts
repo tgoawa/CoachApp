@@ -17,8 +17,8 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.defaultTeamMember$ = this.tmService.defaultTeamMember$;
-    this.userName = Cookie.get('user');
-    this.tmService.getTeamMember(this.userName);
+    // this.userName = Cookie.get('user');
+    // this.tmService.getTeamMember(this.userName);
   }
 
 }
