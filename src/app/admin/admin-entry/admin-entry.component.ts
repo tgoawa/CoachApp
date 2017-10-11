@@ -66,10 +66,10 @@ export class AdminEntryComponent implements OnInit, OnDestroy {
    const subscription =  this.lsService.isCoachAppAuth(username)
       .subscribe(data => {
         this.setAppAccess(data);
+        this.Subscription.add(subscription);
       }, error => {
         this.logger.error(error);
       });
-    this.Subscription.add(subscription);
   }
 
   private setAppAccess(data: boolean) {
