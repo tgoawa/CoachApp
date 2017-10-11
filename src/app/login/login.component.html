@@ -1,20 +1,22 @@
-<mat-card>
-  <mat-card-title>
-    <h1 class="mat-headline">Sign In</h1>
-  </mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-      <mat-form-field class="full-width">
-        <input matInput type="text" placeholder="User Name" formControlName="username">
-        <mat-hint>Use your Windows username</mat-hint>
-        <mat-error>This field is required</mat-error>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput type="password" placeholder="Password" formControlName="password">
-        <mat-hint>Use your Windows password</mat-hint>
-        <mat-error>This field is required</mat-error>
-      </mat-form-field>
-      <button type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid">Log in</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="login">
+  <mat-card class="card-width">
+    <mat-card-title>
+      <h1 class="mat-headline">Sign In</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <mat-form-field class="full-width">
+          <input matInput type="text" placeholder="User Name" formControlName="username">
+          <mat-hint>Use your Windows username</mat-hint>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput type="password" placeholder="Password" formControlName="password">
+          <mat-hint>Use your Windows password</mat-hint>
+          <mat-error>This field is required</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="accent" [disabled]="!loginForm.valid">Log in</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
