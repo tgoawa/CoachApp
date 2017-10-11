@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
     if (!Cookie.check('user')) {
       this.router.navigate(['login']);
       return Observable.of(false);
-    } else if (username === 'sledgej' || username === 'dorrisb') {
+    } else if (username === 'sledgej' || username === 'dorrisb' || username === 'bornm') {
       this.tmService.getTeamMember(username);
       return Observable.of(true);
     } else {
