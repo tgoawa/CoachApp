@@ -1,18 +1,24 @@
 <h1 class="mat-display-1">View Coaches</h1>
-
-<mat-card>
-  <mat-card-content>
-    <mat-form-field>
-      <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Coach">
-      <mat-hint>Only current coaches will be displayed</mat-hint>
-    </mat-form-field>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName" (optionSelected)="onCoachSelected()">
-      <mat-option *ngFor="let coach of filteredTeamMembers | async" [value]="coach">
-        {{ coach.LastFirstName}}
-      </mat-option>
-    </mat-autocomplete>
-    <section *ngIf="associatedTeamMembers">
-      <app-associated-table [data]="associatedTeamMembers"></app-associated-table>
-    </section>
-  </mat-card-content>
-</mat-card>
+<ng-container *ngIf="allTeamMembers; else isLoading">
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field>
+        <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Coach">
+        <mat-hint>Only current coaches will be displayed</mat-hint>
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName" (optionSelected)="onCoachSelected()">
+        <mat-option *ngFor="let coach of filteredTeamMembers | async" [value]="coach">
+          {{ coach.LastFirstName}}
+        </mat-option>
+      </mat-autocomplete>
+      <section *ngIf="associatedTeamMembers">
+        <app-associated-table [data]="associatedTeamMembers"></app-associated-table>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<ng-template #isLoading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

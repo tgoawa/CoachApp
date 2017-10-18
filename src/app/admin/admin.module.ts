@@ -6,7 +6,13 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminEntryComponent } from './admin-entry/admin-entry.component';
 import { AdminComponent } from './admin.component';
 
-import { MatCardModule, MatAutocompleteModule, MatInputModule, MatButtonModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  MatButtonModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 import { NoAccessComponent } from './no-access/no-access.component';
 
 @NgModule({
@@ -17,7 +23,8 @@ import { NoAccessComponent } from './no-access/no-access.component';
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule
   ],
   declarations: [AdminEntryComponent, AdminComponent, NoAccessComponent]
 })
