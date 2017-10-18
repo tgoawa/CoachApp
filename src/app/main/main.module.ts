@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatButtonModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -25,6 +26,7 @@ import {
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     MainComponent,

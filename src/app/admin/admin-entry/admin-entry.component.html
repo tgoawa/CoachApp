@@ -1,16 +1,23 @@
 <h1 class="mat-display-1">Admin</h1>
-<mat-card>
-  <mat-card-content>
-    <mat-form-field>
-      <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Team Member">
-    </mat-form-field>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
-      <mat-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
-        {{ teammember.LastFirstName }}
-      </mat-option>
-    </mat-autocomplete>
-    <section *ngIf="selectedTeamMember | async; let selectedTeamMember">
+<ng-container *ngIf="teamMemberList; else isLoading">
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field>
+        <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Team Member">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
+        <mat-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
+          {{ teammember.LastFirstName }}
+        </mat-option>
+      </mat-autocomplete>
+      <section *ngIf="selectedTeamMember | async; let selectedTeamMember">
         <button type="button" mat-raised-button color="accent" (click)="assignEmulatedTeamMember()">Impersonate Team Member</button>
-    </section>
-  </mat-card-content>
-</mat-card>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<ng-template #isLoading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
