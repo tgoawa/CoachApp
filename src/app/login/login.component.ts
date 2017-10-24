@@ -15,6 +15,7 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  loginError = false;
 
   constructor(private fb: FormBuilder,
     private lgService: LoginService,
@@ -55,9 +56,11 @@ export class LoginComponent implements OnInit {
 
   private setAuthStatus(data: boolean) {
     if (data) {
+      this.loginError = false;
       Cookie.set('user', this.loginForm.get('username').value, 45);
       this.router.navigate(['/home']);
     } else {
+      this.loginError = true;
       this.logger.error('Login Failed!');
     }
   }
