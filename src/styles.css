@@ -5,7 +5,13 @@
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 
 body {
-  padding: .5em 19em;
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.app{
+  height: 100vh;
 }
 
 .success {
