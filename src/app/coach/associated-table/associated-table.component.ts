@@ -5,6 +5,18 @@ import 'rxjs/add/observable/of';
 import { Router } from '@angular/router';
 import { TeamMember } from '../../core/teamMember/team-member';
 
+export class AssociatedDataSource extends DataSource<TeamMember> {
+
+  constructor(private data: TeamMember[]) {
+      super();
+  }
+  connect(): Observable<TeamMember[]> {
+      return Observable.of(this.data);
+  }
+
+  disconnect() { }
+}
+
 @Component({
   selector: 'app-associated-table',
   templateUrl: './associated-table.component.html',
@@ -28,16 +40,4 @@ export class AssociatedTableComponent implements OnInit, OnChanges {
     this.router.navigate(['home', {id}]);
   }
 
-}
-
-export class AssociatedDataSource extends DataSource<TeamMember> {
-
-  constructor(private data: TeamMember[]) {
-    super();
-  }
-  connect(): Observable<TeamMember[]> {
-    return Observable.of(this.data);
-  }
-
-  disconnect() { }
 }
