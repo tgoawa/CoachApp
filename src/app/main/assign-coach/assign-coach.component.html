@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-content>
+    <mat-form-field>
+      <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Team Member">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName" (optionSelected)="onTeamMemberSelected()">
+      <mat-option *ngFor="let teammember of filteredTeamMembers | async" [value]="teammember">
+        {{ teammember?.LastFirstName}}
+      </mat-option>
+    </mat-autocomplete>
+    <section *ngIf="selectedTeamMember">
+      <h2>Team Member</h2>
+      <p>
+        <span class="mat-body-2">Name: </span>{{selectedTeamMember?.FirstName}} {{selectedTeamMember?.LastName}}</p>
+      <p>
+        <span class="mat-body-2">Coach: </span>{{selectedTeamMemberCoach?.FirstName}} {{selectedTeamMemberCoach?.LastName}}</p>
+      <mat-form-field>
+        <input type="text" matInput [formControl]="coachControl" [matAutocomplete]="coach" placeholder="Select a Coach">
+      </mat-form-field>
+      <mat-autocomplete #coach="matAutocomplete" [displayWith]="displayName" (optionSelected)="onMapCoachToTeamMember()">
+        <mat-option *ngFor="let teammember of filteredCoaches | async" [value]="teammember">
+          {{ teammember?.LastFirstName}}
+        </mat-option>
+      </mat-autocomplete>
+      <button mat-raised-button color="accent" (click)="updateCoach()">Update Coach</button>
+      <ng-container *ngIf="messageStatus === 1">
+        <span class="mat-caption success">Coach updated successfully!</span>
+      </ng-container>
+      <ng-container *ngIf="messageStatus === 2">
+        <span class="mat-caption error">There was an issue making this change!</span>
+      </ng-container>
+    </section>
+  </mat-card-content>
+</mat-card>

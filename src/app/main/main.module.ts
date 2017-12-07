@@ -14,6 +14,7 @@ import {
   MatSnackBarModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+import { AssignCoachComponent } from './assign-coach/assign-coach.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import {
   ],
   declarations: [
     MainComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AssignCoachComponent
   ]
 })
 export class MainModule { }
