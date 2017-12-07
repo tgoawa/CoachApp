@@ -11,12 +11,11 @@ import {
   MatAutocompleteModule,
   MatInputModule,
   MatButtonModule,
-  MatListModule,
   MatSnackBarModule,
   MatProgressSpinnerModule
 } from '@angular/material';
 import { AssignCoachComponent } from './assign-coach/assign-coach.component';
-import { NoCoachComponent } from './no-coach/no-coach.component';
+
 
 @NgModule({
   imports: [
@@ -28,15 +27,13 @@ import { NoCoachComponent } from './no-coach/no-coach.component';
     MatAutocompleteModule,
     MatInputModule,
     MatButtonModule,
-    MatListModule,
     MatSnackBarModule,
     MatProgressSpinnerModule
   ],
   declarations: [
     MainComponent,
     LandingPageComponent,
-    AssignCoachComponent,
-    NoCoachComponent
+    AssignCoachComponent
   ]
 })
 export class MainModule { }

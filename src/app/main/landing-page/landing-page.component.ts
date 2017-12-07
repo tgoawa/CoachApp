@@ -20,7 +20,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LandingPageComponent implements OnInit {
   teamMembers: TeamMember[];
-  noCoachList: TeamMember[];
 
   constructor(
     private tmService: TeamMemberService,
@@ -35,7 +34,6 @@ export class LandingPageComponent implements OnInit {
     this.tmService.getTeamMembers().subscribe(
       data => {
         this.teamMembers = data;
-        this.noCoachList = this.noCoach(this.teamMembers);
         this.logger.log('team members retrieved!');
       },
       error => {
@@ -44,13 +42,4 @@ export class LandingPageComponent implements OnInit {
     );
   }
 
-  private noCoach(teamMemberList: TeamMember[]) {
-    const list = [];
-    for (let x = 0; x < teamMemberList.length; x++) {
-      if (teamMemberList[x].CoachFirstName === null) {
-        list.push(teamMemberList[x]);
-      }
-    }
-    return list;
-  }
 }

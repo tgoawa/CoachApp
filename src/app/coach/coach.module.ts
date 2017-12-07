@@ -12,7 +12,8 @@ import {
   MatInputModule,
   MatTableModule,
   MatButtonModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatListModule
 } from '@angular/material';
 import { AssociatedTableComponent } from './associated-table/associated-table.component';
 
@@ -24,6 +25,7 @@ import { AssociatedTableComponent } from './associated-table/associated-table.co
     MatCardModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatListModule,
     MatTableModule,
     MatButtonModule,
     MatProgressSpinnerModule

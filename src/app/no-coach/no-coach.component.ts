@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TeamMember } from '../../core/teamMember/team-member';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-no-coach',
@@ -7,7 +6,7 @@ import { TeamMember } from '../../core/teamMember/team-member';
   styleUrls: ['./no-coach.component.scss']
 })
 export class NoCoachComponent implements OnInit {
-  @Input('noCoach') noCoach: TeamMember[];
+
   constructor() { }
 
   ngOnInit() {
