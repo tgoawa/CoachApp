@@ -1,22 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-
-import { TeamMemberCoachModel } from '../../core/models/coach-team-member';
 import { TeamMemberService } from '../../core/teamMember/team-member.service';
 import { LoggerService } from '../../core/services/logger.service';
 import { TeamMember } from '../../core/teamMember/team-member';
 
 @Component({
-  selector: 'app-landing-page',
-  templateUrl: './landing-page.component.html',
-  styleUrls: ['./landing-page.component.scss'],
+  selector: 'app-no-coach-landing',
+  templateUrl: './no-coach-landing.component.html',
+  styleUrls: ['./no-coach-landing.component.scss']
 })
-export class LandingPageComponent implements OnInit {
+export class NoCoachLandingComponent implements OnInit {
   teamMembers: TeamMember[];
 
-  constructor(
-    private tmService: TeamMemberService,
-    private logger: LoggerService
-  ) {}
+  constructor(private tmService: TeamMemberService, private logger: LoggerService) { }
 
   ngOnInit() {
     this.getTeamMembers();

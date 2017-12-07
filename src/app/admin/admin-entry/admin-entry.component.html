@@ -1,6 +1,8 @@
-<h1 class="mat-display-1">Admin</h1>
 <ng-container *ngIf="teamMemberList; else isLoading">
   <mat-card>
+    <mat-card-title>
+      Admin
+    </mat-card-title>
     <mat-card-content>
       <mat-form-field>
         <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Team Member">

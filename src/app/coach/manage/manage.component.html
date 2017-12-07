@@ -1,6 +1,8 @@
-<h1 class="mat-display-1">View Coaches</h1>
 <ng-container *ngIf="allTeamMembers; else isLoading">
   <mat-card>
+    <mat-card-title>
+      View Coaches
+    </mat-card-title>
     <mat-card-content>
       <mat-form-field>
         <input type="text" matInput [formControl]="teamMemberControl" [matAutocomplete]="auto" placeholder="Select a Coach">

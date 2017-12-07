@@ -5,4 +5,5 @@ export class TeamMember {
   FirstName: string;
   LastName: string;
   LastFirstName: string;
+  CoachFirstName: string;
 }
