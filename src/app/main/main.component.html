@@ -1,5 +1,6 @@
 <app-header></app-header>
 <div class="indent">
+  <h1 class="mat-display-1">Schenck Coach Application</h1>
   <ng-container *ngIf="(defaultTeamMember$ | async)?.TeamMemberId !== 0; else invalid">
     <router-outlet></router-outlet>
   </ng-container>
