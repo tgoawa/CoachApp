@@ -1,5 +1,6 @@
 <ng-container *ngIf="teamMembers; else isLoading">
   <app-assign-coach [teamMembers]="teamMembers"></app-assign-coach>
+  <app-no-coach [noCoach]="noCoachList"></app-no-coach>
 </ng-container>
 <ng-template #isLoading>
   <div class="loading">

@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-title>
+    Team Members without a Coach
+  </mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let teamMember of noCoach">
+        {{teamMember.LastFirstName}}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+
