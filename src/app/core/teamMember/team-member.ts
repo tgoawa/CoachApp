@@ -6,4 +6,6 @@ export class TeamMember {
   LastName: string;
   LastFirstName: string;
   CoachFirstName: string;
+  Location: string;
+  BusinessUnit: string;
 }

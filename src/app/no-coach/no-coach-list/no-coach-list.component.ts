@@ -1,6 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort, MatPaginator } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 import { TeamMember } from '../../core/teamMember/team-member';
+import { CoachList } from './coachList';
 
 @Component({
   selector: 'app-no-coach-list',
@@ -8,26 +15,32 @@ import { TeamMember } from '../../core/teamMember/team-member';
   styleUrls: ['./no-coach-list.component.scss']
 })
 export class NoCoachListComponent implements OnInit {
-  @Input('teamMembers') teamMembers: TeamMember[];
-  noCoachList: TeamMember[];
+  @Input('noCoachList') noCoachList: TeamMember[];
+  displayedColumns = ['lastFirstName', 'location', 'businessUnit'];
+  selection = new SelectionModel<string>(true, []);
+  dataSource: CoachList;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('filter') filter: ElementRef;
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.noCoachList = this.noCoach(this.teamMembers);
+    this.setTable();
   }
 
   onAssignCoach(id: number) {
     this.router.navigate(['home', {id}]);
   }
 
-  private noCoach(teamMemberList: TeamMember[]) {
-    const list = [];
-    for (let x = 0; x < teamMemberList.length; x++) {
-      if (teamMemberList[x].CoachFirstName === null) {
-        list.push(teamMemberList[x]);
-      }
-    }
-    return list;
+  private setTable() {
+    this.dataSource = new CoachList(this.noCoachList, this.sort, this.paginator);
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+      .debounceTime(150)
+      .distinctUntilChanged()
+      .subscribe(() => {
+        if (!this.dataSource) { return; }
+        this.dataSource.filter = this.filter.nativeElement.value;
+      });
   }
 
 }

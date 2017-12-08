@@ -4,6 +4,11 @@ import { CommonModule } from '@angular/common';
 import {
   MatCardModule,
   MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatTableModule,
   MatProgressSpinnerModule,
   MatListModule
 } from '@angular/material';
@@ -18,8 +23,13 @@ import { NoCoachLandingComponent } from './no-coach-landing/no-coach-landing.com
     CommonModule,
     MatCardModule,
     MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
     MatProgressSpinnerModule,
     MatListModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule,
     NoCoachRoutingModule
   ],
   declarations: [NoCoachComponent, NoCoachLandingComponent, NoCoachListComponent]
